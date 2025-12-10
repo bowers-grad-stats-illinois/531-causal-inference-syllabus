@@ -1,5 +1,7 @@
 # POLS 531: Causal Inference for Political Science
 
+THIS IS A DRAFT MOSTLY FOR FORMATTING.
+
 Syllabus and general course materials for the second term statistics course for political science PhD students at the University of Illinois @ Urbana-Champaign.
 
 ## About This Course

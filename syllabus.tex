@@ -51,21 +51,31 @@
 \newcommand{\firstclassdate}{20/01/2026}
 
 \newdateformat{classformat}{\THEDAY\ \monthname[\THEMONTH] \THEYEAR}
+
+% Counter for automatic week numbering
 \newcounter{weeknum}
 \setcounter{weeknum}{0}
 
-% Set the first day of class
-\SetDate[\firstclassdate]
-
-% Command to print the date for each week (automatically advances by 7 days)
-\newcommand{\weekdate}{%
+% \classweek{offset} - Prints the date that is 'offset' weeks from firstclassdate
+% Example: \classweek{0} = first class, \classweek{1} = second week, \classweek{9} = week after spring break
+% This allows you to:
+%   - Add/remove weeks by changing just one number
+%   - Insert spring break by skipping a week number (e.g., go from \classweek{7} to \classweek{9})
+%   - Reorder weeks without affecting other dates
+\newcommand{\classweek}[1]{%
   \stepcounter{weeknum}%
-  \ifnum\theweeknum=1
-    \SetDate[\firstclassdate]%
-  \else
-    \AdvanceDate[7]%
-  \fi
+  \SetDate[\firstclassdate]%
+  \AdvanceDate[\the\numexpr#1*7\relax]%
   \classformat\today%
+}
+
+% Legacy command for backwards compatibility (auto-incrementing)
+% \weekdate - Automatically advances by 7 days each call
+\newcounter{autoweek}
+\setcounter{autoweek}{-1}
+\newcommand{\weekdate}{%
+  \stepcounter{autoweek}%
+  \classweek{\theautoweek}%
 }
 
 \begin{document}
@@ -112,9 +122,16 @@ By the end of this course, students will be able to:
   \item Conduct original causal inference analyses using R or Stata
 \end{itemize}
 
-\section*{\faCalendarAlt\ Course Schedule}
+\section*{\faIcon{calendar-alt}\ Course Schedule}
 
-\subsection*{Week 1: \weekdate\ -- Introduction and the Fundamental Problem}
+% HOW TO USE: \classweek{N} prints the date N weeks after firstclassdate
+% - Week numbers are offsets: 0 = first class, 1 = second week, etc.
+% - To add spring break: skip a number (e.g., go from 7 to 9, leaving 8 as spring break)
+% - To insert a new week: increment all subsequent week numbers by 1
+% - To delete a week: decrement all subsequent week numbers by 1
+% - To reorder: just swap the offset numbers
+
+\subsection*{Week 1: \classweek{0} -- Introduction and the Fundamental Problem}
 \begin{itemize}[leftmargin=*]
   \item The fundamental problem of causal inference
   \item Potential outcomes framework
@@ -122,15 +139,13 @@ By the end of this course, students will be able to:
   \item Assignment mechanisms
 \end{itemize}
 
-\subsection*{Week 2: \weekdate\ -- Randomized Experiments I}
+\subsection*{Week 2: \classweek{1} -- Randomized Experiments I}
 \begin{itemize}[leftmargin=*]
-  \item The gold standard of causal inference
-  \item Simple random assignment
-  \item Complete random assignment
+  \item Types of random assignment
   \item Fisher's exact test and randomization inference
 \end{itemize}
 
-\subsection*{Week 3: \weekdate\ -- Randomized Experiments II}
+\subsection*{Week 3: \classweek{2} -- Randomized Experiments II}
 \begin{itemize}[leftmargin=*]
   \item Block randomization and stratification
   \item Cluster randomization
@@ -138,7 +153,7 @@ By the end of this course, students will be able to:
   \item Compliance and intention-to-treat analysis
 \end{itemize}
 
-\subsection*{Week 4: \weekdate\ -- Observational Studies and Selection Bias}
+\subsection*{Week 4: \classweek{3} -- Observational Studies and Selection Bias}
 \begin{itemize}[leftmargin=*]
   \item Sources of bias in observational studies
   \item Selection on observables vs. unobservables
@@ -146,23 +161,22 @@ By the end of this course, students will be able to:
   \item Introduction to confounding
 \end{itemize}
 
-\subsection*{Week 5: \weekdate\ -- Matching Methods I}
+\subsection*{Week 5: \classweek{4} -- Matching Methods I}
 \begin{itemize}[leftmargin=*]
-  \item Exact matching and coarsened exact matching
-  \item Propensity score matching
-  \item Assessing balance and common support
+  \item Exact matching
+  \item Propensity score and Mahalanobis score matching
+  \item Assessing balance
   \item Sensitivity analysis
 \end{itemize}
 
-\subsection*{Week 6: \weekdate\ -- Matching Methods II}
+\subsection*{Week 6: \classweek{5} -- Matching Methods II}
 \begin{itemize}[leftmargin=*]
   \item Weighting methods (IPW, AIPW)
   \item Entropy balancing
   \item Synthetic control methods
-  \item Applications to political science
 \end{itemize}
 
-\subsection*{Week 7: \weekdate\ -- Regression and Causal Inference}
+\subsection*{Week 7: \classweek{6} -- Regression and Causal Inference}
 \begin{itemize}[leftmargin=*]
   \item Regression as matching
   \item Parametric vs. non-parametric approaches
@@ -170,7 +184,7 @@ By the end of this course, students will be able to:
   \item The debate over regression adjustments
 \end{itemize}
 
-\subsection*{Week 8: \weekdate\ -- Instrumental Variables I}
+\subsection*{Week 8: \classweek{7} -- Instrumental Variables I}
 \begin{itemize}[leftmargin=*]
   \item The instrumental variables approach
   \item Identifying assumptions (relevance and exclusion)
@@ -178,7 +192,9 @@ By the end of this course, students will be able to:
   \item Weak instruments problem
 \end{itemize}
 
-\subsection*{Week 9: \weekdate\ -- Instrumental Variables II}
+% SPRING BREAK: Week 8 (offset 8) is skipped -- no class on \SetDate[\firstclassdate]\AdvanceDate[56]\classformat\today
+
+\subsection*{Week 9: \classweek{9} -- Instrumental Variables II}
 \begin{itemize}[leftmargin=*]
   \item Local average treatment effects (LATE)
   \item Testing IV assumptions
@@ -186,7 +202,7 @@ By the end of this course, students will be able to:
   \item Encouragement designs
 \end{itemize}
 
-\subsection*{Week 10: \weekdate\ -- Regression Discontinuity Designs}
+\subsection*{Week 10: \classweek{10} -- Regression Discontinuity Designs}
 \begin{itemize}[leftmargin=*]
   \item Sharp vs. fuzzy RD designs
   \item Identification assumptions
@@ -194,7 +210,7 @@ By the end of this course, students will be able to:
   \item Applications: electoral thresholds and policy discontinuities
 \end{itemize}
 
-\subsection*{Week 11: \weekdate\ -- Difference-in-Differences}
+\subsection*{Week 11: \classweek{11} -- Difference-in-Differences}
 \begin{itemize}[leftmargin=*]
   \item The parallel trends assumption
   \item Two-way fixed effects models
@@ -202,7 +218,7 @@ By the end of this course, students will be able to:
   \item Recent developments: staggered adoption and heterogeneous effects
 \end{itemize}
 
-\subsection*{Week 12: \weekdate\ -- Panel Data and Fixed Effects}
+\subsection*{Week 12: \classweek{12} -- Panel Data and Fixed Effects}
 \begin{itemize}[leftmargin=*]
   \item Panel data methods for causal inference
   \item Individual and time fixed effects
@@ -210,7 +226,7 @@ By the end of this course, students will be able to:
   \item Dynamic panel models
 \end{itemize}
 
-\subsection*{Week 13: \weekdate\ -- Directed Acyclic Graphs (DAGs)}
+\subsection*{Week 13: \classweek{13} -- Directed Acyclic Graphs (DAGs)}
 \begin{itemize}[leftmargin=*]
   \item Graphical representation of causal models
   \item Confounders, mediators, and colliders
@@ -218,7 +234,7 @@ By the end of this course, students will be able to:
   \item Using DAGs to guide analysis strategies
 \end{itemize}
 
-\subsection*{Week 14: \weekdate\ -- Mediation and Spillover Effects}
+\subsection*{Week 14: \classweek{14} -- Mediation and Spillover Effects}
 \begin{itemize}[leftmargin=*]
   \item Direct and indirect effects
   \item Mediation analysis
@@ -226,7 +242,7 @@ By the end of this course, students will be able to:
   \item Network experiments
 \end{itemize}
 
-\subsection*{Week 15: \weekdate\ -- Advanced Topics and Frontiers}
+\subsection*{Week 15: \classweek{15} -- Advanced Topics and Frontiers}
 \begin{itemize}[leftmargin=*]
   \item Machine learning for causal inference
   \item Double/debiased machine learning
@@ -234,13 +250,13 @@ By the end of this course, students will be able to:
   \item Causal inference with qualitative data
 \end{itemize}
 
-\subsection*{Week 16: \weekdate\ -- Student Presentations}
+\subsection*{Week 16: \classweek{16} -- Student Presentations}
 \begin{itemize}[leftmargin=*]
   \item Final project presentations
   \item Course wrap-up and discussion
 \end{itemize}
 
-\section*{\faPencilAlt\ Assignments and Grading}
+\section*{\faIcon{pencil-alt}\ Assignments and Grading}
 
 \begin{tabular}{@{}ll}
 \textbf{Problem Sets (4)} & 40\% (10\% each) \\

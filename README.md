@@ -44,9 +44,9 @@ The output will be `syllabus.pdf`.
 
 ### Changing Course Dates
 
-The first day of class is set in `syllabus.tex` at line 68:
+The first day of class is set in `syllabus.tex` at line 51:
 ```latex
-\SetDate[20/01/2026]  % Format: DD/MM/YYYY
+\newcommand{\firstclassdate}{20/01/2026}  % Format: DD/MM/YYYY
 ```
 
 Simply change this date, and all subsequent weekly dates will automatically update. No need to hard-code individual class dates!
@@ -54,7 +54,7 @@ Simply change this date, and all subsequent weekly dates will automatically upda
 ### Modifying Content
 
 Edit `syllabus.tex` to:
-- Update instructor information (lines 77-83)
+- Update instructor information (around line 88 in the course information table)
 - Modify course description and objectives
 - Add, remove, or reorder weeks in the schedule
 - Adjust assignments and grading policies
@@ -68,7 +68,7 @@ The color scheme uses University of Illinois colors:
 \definecolor{accentcolor}{RGB}{232, 74, 39}   % Illinois Orange
 ```
 
-Change these RGB values in `syllabus.tex` (lines 24-26) to customize the color scheme.
+Change these RGB values in `syllabus.tex` (lines 19-21) to customize the color scheme.
 
 ## License
 

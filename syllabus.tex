@@ -47,25 +47,21 @@
 \renewcommand{\footrulewidth}{0pt}
 
 % Date calculation setup
-\newcounter{classdate}
+% CUSTOMIZE: Change this date to adjust the first day of class
+\newcommand{\firstclassdate}{20/01/2026}
+
 \newdateformat{classformat}{\THEDAY\ \monthname[\THEMONTH] \THEYEAR}
-
-% Function to set and print class date
-\newcommand{\classdate}[1]{%
-  \setcounter{classdate}{#1}%
-  \SaveDate[\theclassdate]%
-  \classformat\DisplayDate%
-}
-
-% Set the first day of class: January 20, 2026
-\SetDate[20/01/2026]
 \newcounter{weeknum}
 \setcounter{weeknum}{0}
 
+% Set the first day of class
+\SetDate[\firstclassdate]
+
+% Command to print the date for each week (automatically advances by 7 days)
 \newcommand{\weekdate}{%
   \stepcounter{weeknum}%
   \ifnum\theweeknum=1
-    \SetDate[20/01/2026]%
+    \SetDate[\firstclassdate]%
   \else
     \AdvanceDate[7]%
   \fi

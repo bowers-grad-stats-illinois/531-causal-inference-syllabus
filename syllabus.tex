@@ -1,0 +1,304 @@
+\documentclass[11pt,letterpaper]{article}
+
+% Modern packages for styling
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{helvet} % Helvetica font (sans serif)
+\renewcommand{\familydefault}{\sfdefault} % Set sans serif as default
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{datetime}
+\usepackage{advdate}
+
+% Define color scheme
+\definecolor{primarycolor}{RGB}{19, 41, 75} % Illinois Navy Blue
+\definecolor{accentcolor}{RGB}{232, 74, 39} % Illinois Orange
+\definecolor{lightgray}{RGB}{100, 100, 100}
+
+% Hyperlink setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primarycolor,
+    urlcolor=accentcolor,
+    citecolor=primarycolor
+}
+
+% Section title formatting
+\titleformat{\section}
+{\color{primarycolor}\Large\bfseries}
+{\thesection}{1em}{}[\titlerule]
+
+\titleformat{\subsection}
+{\color{accentcolor}\large\bfseries}
+{\thesubsection}{1em}{}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\color{lightgray}\small POLS 531: Causal Inference}
+\fancyhead[R]{\color{lightgray}\small Spring 2026}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Date calculation setup
+% CUSTOMIZE: Change this date to adjust the first day of class
+\newcommand{\firstclassdate}{20/01/2026}
+
+\newdateformat{classformat}{\THEDAY\ \monthname[\THEMONTH] \THEYEAR}
+\newcounter{weeknum}
+\setcounter{weeknum}{0}
+
+% Set the first day of class
+\SetDate[\firstclassdate]
+
+% Command to print the date for each week (automatically advances by 7 days)
+\newcommand{\weekdate}{%
+  \stepcounter{weeknum}%
+  \ifnum\theweeknum=1
+    \SetDate[\firstclassdate]%
+  \else
+    \AdvanceDate[7]%
+  \fi
+  \classformat\today%
+}
+
+\begin{document}
+
+% Custom title
+\begin{center}
+  {\Huge\color{primarycolor}\bfseries POLS 531}\\[0.2cm]
+  {\Large\color{accentcolor}\bfseries Causal Inference for Political Science}\\[0.4cm]
+  {\large Spring 2026}\\[0.2cm]
+  {\normalsize University of Illinois at Urbana-Champaign}\\[0.3cm]
+  \rule{\textwidth}{1pt}
+\end{center}
+
+\section*{\faInfoCircle\ Course Information}
+
+\noindent
+\begin{tabular}{@{}ll}
+\textbf{\faCalendar\ Meeting Time:} & Tuesday, 9:00 AM -- 11:50 AM \\
+\textbf{\faMapMarker\ Location:} & David Kinley Hall 314 \\
+\textbf{\faUser\ Instructor:} & Professor [Name] \\
+\textbf{\faEnvelope\ Email:} & \href{mailto:instructor@illinois.edu}{instructor@illinois.edu} \\
+\textbf{\faClock\ Office Hours:} & Wednesday 2:00 PM -- 4:00 PM, or by appointment \\
+\textbf{\faBuilding\ Office:} & David Kinley Hall [Office Number]
+\end{tabular}
+
+\section*{\faBook\ Course Description}
+
+This course provides a comprehensive introduction to causal inference methods for political science research. We will explore the fundamental problem of causal inference, experimental and quasi-experimental designs, and modern statistical techniques for estimating causal effects from observational data. The course emphasizes both theoretical foundations and practical application, with students learning to critically evaluate causal claims and conduct their own causal analyses.
+
+Topics include randomized experiments, matching methods, instrumental variables, regression discontinuity designs, difference-in-differences, synthetic control methods, and directed acyclic graphs (DAGs). Students will gain hands-on experience implementing these methods using statistical software and applying them to real-world political science questions.
+
+\section*{\faBullseye\ Learning Objectives}
+
+By the end of this course, students will be able to:
+
+\begin{itemize}[leftmargin=*]
+  \item Articulate the fundamental problem of causal inference and distinguish causal from descriptive research questions
+  \item Design and analyze randomized experiments, including power analysis and blocking strategies
+  \item Apply matching methods to estimate causal effects from observational data
+  \item Implement and interpret instrumental variable analyses
+  \item Conduct regression discontinuity and difference-in-differences analyses
+  \item Use directed acyclic graphs (DAGs) to reason about causal relationships and confounding
+  \item Critically evaluate causal claims in published research
+  \item Conduct original causal inference analyses using R or Stata
+\end{itemize}
+
+\section*{\faCalendarAlt\ Course Schedule}
+
+\subsection*{Week 1: \weekdate\ -- Introduction and the Fundamental Problem}
+\begin{itemize}[leftmargin=*]
+  \item The fundamental problem of causal inference
+  \item Potential outcomes framework
+  \item Average treatment effects (ATE, ATT, ATC)
+  \item Assignment mechanisms
+\end{itemize}
+
+\subsection*{Week 2: \weekdate\ -- Randomized Experiments I}
+\begin{itemize}[leftmargin=*]
+  \item The gold standard of causal inference
+  \item Simple random assignment
+  \item Complete random assignment
+  \item Fisher's exact test and randomization inference
+\end{itemize}
+
+\subsection*{Week 3: \weekdate\ -- Randomized Experiments II}
+\begin{itemize}[leftmargin=*]
+  \item Block randomization and stratification
+  \item Cluster randomization
+  \item Power analysis and sample size calculations
+  \item Compliance and intention-to-treat analysis
+\end{itemize}
+
+\subsection*{Week 4: \weekdate\ -- Observational Studies and Selection Bias}
+\begin{itemize}[leftmargin=*]
+  \item Sources of bias in observational studies
+  \item Selection on observables vs. unobservables
+  \item Conditional independence assumption
+  \item Introduction to confounding
+\end{itemize}
+
+\subsection*{Week 5: \weekdate\ -- Matching Methods I}
+\begin{itemize}[leftmargin=*]
+  \item Exact matching and coarsened exact matching
+  \item Propensity score matching
+  \item Assessing balance and common support
+  \item Sensitivity analysis
+\end{itemize}
+
+\subsection*{Week 6: \weekdate\ -- Matching Methods II}
+\begin{itemize}[leftmargin=*]
+  \item Weighting methods (IPW, AIPW)
+  \item Entropy balancing
+  \item Synthetic control methods
+  \item Applications to political science
+\end{itemize}
+
+\subsection*{Week 7: \weekdate\ -- Regression and Causal Inference}
+\begin{itemize}[leftmargin=*]
+  \item Regression as matching
+  \item Parametric vs. non-parametric approaches
+  \item Fixed effects models
+  \item The debate over regression adjustments
+\end{itemize}
+
+\subsection*{Week 8: \weekdate\ -- Instrumental Variables I}
+\begin{itemize}[leftmargin=*]
+  \item The instrumental variables approach
+  \item Identifying assumptions (relevance and exclusion)
+  \item Two-stage least squares (2SLS)
+  \item Weak instruments problem
+\end{itemize}
+
+\subsection*{Week 9: \weekdate\ -- Instrumental Variables II}
+\begin{itemize}[leftmargin=*]
+  \item Local average treatment effects (LATE)
+  \item Testing IV assumptions
+  \item Applications: natural experiments in political science
+  \item Encouragement designs
+\end{itemize}
+
+\subsection*{Week 10: \weekdate\ -- Regression Discontinuity Designs}
+\begin{itemize}[leftmargin=*]
+  \item Sharp vs. fuzzy RD designs
+  \item Identification assumptions
+  \item Bandwidth selection and specification tests
+  \item Applications: electoral thresholds and policy discontinuities
+\end{itemize}
+
+\subsection*{Week 11: \weekdate\ -- Difference-in-Differences}
+\begin{itemize}[leftmargin=*]
+  \item The parallel trends assumption
+  \item Two-way fixed effects models
+  \item Event studies and pre-trends testing
+  \item Recent developments: staggered adoption and heterogeneous effects
+\end{itemize}
+
+\subsection*{Week 12: \weekdate\ -- Panel Data and Fixed Effects}
+\begin{itemize}[leftmargin=*]
+  \item Panel data methods for causal inference
+  \item Individual and time fixed effects
+  \item First differences and within estimators
+  \item Dynamic panel models
+\end{itemize}
+
+\subsection*{Week 13: \weekdate\ -- Directed Acyclic Graphs (DAGs)}
+\begin{itemize}[leftmargin=*]
+  \item Graphical representation of causal models
+  \item Confounders, mediators, and colliders
+  \item d-separation and conditional independence
+  \item Using DAGs to guide analysis strategies
+\end{itemize}
+
+\subsection*{Week 14: \weekdate\ -- Mediation and Spillover Effects}
+\begin{itemize}[leftmargin=*]
+  \item Direct and indirect effects
+  \item Mediation analysis
+  \item Interference and spillover effects
+  \item Network experiments
+\end{itemize}
+
+\subsection*{Week 15: \weekdate\ -- Advanced Topics and Frontiers}
+\begin{itemize}[leftmargin=*]
+  \item Machine learning for causal inference
+  \item Double/debiased machine learning
+  \item Text as treatment and outcome
+  \item Causal inference with qualitative data
+\end{itemize}
+
+\subsection*{Week 16: \weekdate\ -- Student Presentations}
+\begin{itemize}[leftmargin=*]
+  \item Final project presentations
+  \item Course wrap-up and discussion
+\end{itemize}
+
+\section*{\faPencilAlt\ Assignments and Grading}
+
+\begin{tabular}{@{}ll}
+\textbf{Problem Sets (4)} & 40\% (10\% each) \\
+\textbf{Midterm Exam} & 25\% \\
+\textbf{Final Research Paper} & 25\% \\
+\textbf{Class Participation} & 10\% \\
+\end{tabular}
+
+\subsection*{Problem Sets}
+Four problem sets will be assigned throughout the semester, combining theoretical questions with applied data analysis. Students may work in groups of up to three but must submit individual write-ups. Problem sets are due at the beginning of class on the assigned date.
+
+\subsection*{Midterm Exam}
+A take-home midterm exam will be distributed in Week 8 and due one week later. The exam will cover material from the first half of the course and test both conceptual understanding and analytical skills.
+
+\subsection*{Final Research Paper}
+Students will write a research paper (15-20 pages) that applies causal inference methods to a substantive political science question. The paper should include a clear research question, literature review, description of data and methods, results, and discussion. A proposal is due in Week 10, and the final paper is due during finals week.
+
+\subsection*{Class Participation}
+Active participation in class discussions, including presenting and critiquing research designs, is expected. Students should come prepared to discuss the assigned readings.
+
+\section*{\faBookOpen\ Required Texts}
+
+The following books are required and available at the bookstore or online:
+
+\begin{itemize}[leftmargin=*]
+  \item Gerber, Alan S., and Donald P. Green. \textit{Field Experiments: Design, Analysis, and Interpretation}. W.W. Norton \& Company.
+  \item Angrist, Joshua D., and Jörn-Steffen Pischke. \textit{Mostly Harmless Econometrics: An Empiricist's Companion}. Princeton University Press.
+  \item Cunningham, Scott. \textit{Causal Inference: The Mixtape}. Yale University Press. (Also available free online)
+\end{itemize}
+
+Additional readings will be posted on Canvas.
+
+\section*{\faLaptop\ Software}
+
+Students should be proficient in R or Stata. All examples in class will be demonstrated in R, but students may use Stata for assignments if preferred. We will use various R packages including \texttt{tidyverse}, \texttt{estimatr}, \texttt{MatchIt}, \texttt{rdrobust}, and others.
+
+\section*{\faExclamationTriangle\ Course Policies}
+
+\subsection*{Late Work}
+Late problem sets will be penalized 10\% per day. Extensions may be granted for documented emergencies if requested in advance.
+
+\subsection*{Academic Integrity}
+All students are expected to follow the University of Illinois Student Code regarding academic integrity. Plagiarism or cheating will result in a failing grade for the assignment and may lead to further disciplinary action.
+
+\subsection*{Accessibility}
+Students with disabilities who require accommodations should contact Disability Resources and Educational Services (DRES) and provide the instructor with accommodation letters as soon as possible.
+
+\subsection*{Mental Health}
+The University of Illinois offers a range of mental health services. If you are feeling overwhelmed, anxious, or depressed, please reach out to the Counseling Center (\href{https://www.counselingcenter.illinois.edu/}{counselingcenter.illinois.edu}) or call the Consultation and Crisis Line at 217-333-3704.
+
+\subsection*{Diversity and Inclusion}
+The Political Science Department is committed to building an inclusive environment where all students feel welcomed and supported. We value diverse perspectives and encourage respectful dialogue.
+
+\vspace{1cm}
+
+\begin{center}
+\color{lightgray}\small
+This syllabus is subject to change. Any modifications will be announced in class and posted on Canvas.
+\end{center}
+
+\end{document}

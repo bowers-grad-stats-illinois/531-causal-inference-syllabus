@@ -3,8 +3,10 @@
 # Main target
 all: syllabus.pdf
 
-# Compile the syllabus
-syllabus.pdf: syllabus.tex
+# Compile the syllabus (with bibliography)
+syllabus.pdf: syllabus.tex syllabus.bib
+	pdflatex syllabus.tex
+	biber syllabus
 	pdflatex syllabus.tex
 	pdflatex syllabus.tex
 
@@ -20,7 +22,7 @@ view: syllabus.pdf
 
 # Clean build artifacts
 clean:
-	rm -f *.aux *.log *.out *.toc *.fdb_latexmk *.fls *.synctex.gz *.bbl *.blg *.nav *.snm *.vrb
+	rm -f *.aux *.log *.out *.toc *.fdb_latexmk *.fls *.synctex.gz *.bbl *.blg *.nav *.snm *.vrb *.bcf *.run.xml
 	rm -f syllabus.pdf
 
 # Help message

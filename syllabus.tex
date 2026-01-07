@@ -15,6 +15,10 @@
 \usepackage{datetime}
 \usepackage{advdate}
 
+% Bibliography setup
+\usepackage[style=authoryear, backend=biber, maxbibnames=10, maxcitenames=2]{biblatex}
+\addbibresource{syllabus.bib}
+
 % Define color scheme
 \definecolor{primarycolor}{RGB}{19, 41, 75} % Illinois Navy Blue
 \definecolor{accentcolor}{RGB}{232, 74, 39} % Illinois Orange
@@ -43,6 +47,7 @@
 \fancyhead[L]{\color{lightgray}\small POLS 531: Causal Inference}
 \fancyhead[R]{\color{lightgray}\small Spring 2026}
 \fancyfoot[C]{\thepage}
+\fancyfoot[R]{\footnotesize{Version~of~\today~\currenttime}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0pt}
 
@@ -78,14 +83,16 @@
   \classweek{\theautoweek}%
 }
 
+\usepackage{parskip}
+
 \begin{document}
 
 % Custom title
 \begin{center}
-  {\Huge\color{primarycolor}\bfseries POLS 531}\\[0.2cm]
-  {\Large\color{accentcolor}\bfseries Causal Inference for Political Science}\\[0.4cm]
-  {\large Spring 2026}\\[0.2cm]
-  {\normalsize University of Illinois at Urbana-Champaign}\\[0.3cm]
+  {\Large\color{accentcolor}\bfseries Causal Inference for Political Science}\\
+  {\Large\color{primarycolor}\bfseries POLS 531}\\
+  {\large Spring 2026}\\
+  {\normalsize University of Illinois at Urbana-Champaign}
   \rule{\textwidth}{1pt}
 \end{center}
 
@@ -95,211 +102,252 @@
 \begin{tabular}{@{}ll}
 \textbf{\faCalendar\ Meeting Time:} & Tuesday, 9:00 AM -- 11:50 AM \\
 \textbf{\faMapMarker\ Location:} & David Kinley Hall 314 \\
-\textbf{\faUser\ Instructor:} & Professor [Name] \\
-\textbf{\faEnvelope\ Email:} & \href{mailto:instructor@illinois.edu}{instructor@illinois.edu} \\
-\textbf{\faClock\ Office Hours:} & Wednesday 2:00 PM -- 4:00 PM, or by appointment \\
-\textbf{\faBuilding\ Office:} & David Kinley Hall [Office Number]
+\textbf{\faUser\ Instructor:} & Jake Bowers \\
+\textbf{\faEnvelope\ Instructor Email:} & \href{mailto:jwbowers@illinois.edu}{jwbowers@illinois.edu} \\
+\textbf{\faClock\ Office Hours:} & by appointment at \href{https://calendly.com/jakebowers}{Calendly}\\
+\textbf{\faBuilding\ Office:} & 432 David Kinley Hall \\
+    \textbf{\faUser\ Methods Preceptor:} & Liliana Brock \\
+    \textbf{\faEnvelope\ Methods Preceptor Email:} & \href{lcbrock2@illinois.edu}{lcbrock2@illinois.edu}
 \end{tabular}
 
-\section*{\faBook\ Course Description}
+\section*{\faBook\ Overview}
 
-This course provides a comprehensive introduction to causal inference methods for political science research. We will explore the fundamental problem of causal inference, experimental and quasi-experimental designs, and modern statistical techniques for estimating causal effects from observational data. The course emphasizes both theoretical foundations and practical application, with students learning to critically evaluate causal claims and conduct their own causal analyses.
+We infer what we cannot observe. Last term you engaged with the problems of
+choosing better or worse descriptions of what we actually observe in data, and
+also with the problems of statistical inference --- where we discussed better
+and worse ways to learn about descriptions of phenomenon that we cannot
+directly observe using tools like estimators and tests. Whether an estimator or
+a test was a good one or bad one depended on assumptions that we had to make
+about the process of observation. For example, we learned that a randomized
+experiment and/or a random sample allows us to trust that our estimators are
+unbiased and tests have controlled false positive error rates.
 
-Topics include randomized experiments, matching methods, instrumental variables, regression discontinuity designs, difference-in-differences, synthetic control methods, and directed acyclic graphs (DAGs). Students will gain hands-on experience implementing these methods using statistical software and applying them to real-world political science questions.
+This term we dive deeper in the different approaches that statisticians and
+methodologists have developed to make causal inferences.\footnote{I encourage
+you to check out classes on sampling in order to go deeper into population
+inference and classes on measurement and psychometrics in order to go deeper
+into measurement inference.} When we say "causal inference" in this course we
+are really talking about making statistical inferences that we feel comfortable
+interpreting as reflecting counterfactual causal effects.\footnote{We recommend
+you checkout \textcite{waldner2025book} to learn more about causal inference that
+does not involve statistical inference directly.}
+
+What we will see is that ``statistical inference for counterfactual causal
+quantities" aka ``causal inference" requires more assumptions than statistical
+inference alone. The fact that we have to make assumptions is not in and of
+itself a problem. However, more assumptions require more scrutiny. By the end
+of the course, I hope that you feel confident choosing, using and scrutinizing
+assumptions to enable you to make causal inferences from data and designs that
+help you advance understanding of politics and society in your substantive
+work.
 
 \section*{\faBullseye\ Learning Objectives}
 
 By the end of this course, students will be able to:
 
 \begin{itemize}[leftmargin=*]
-  \item Articulate the fundamental problem of causal inference and distinguish causal from descriptive research questions
-  \item Design and analyze randomized experiments, including power analysis and blocking strategies
-  \item Apply matching methods to estimate causal effects from observational data
-  \item Implement and interpret instrumental variable analyses
-  \item Conduct regression discontinuity and difference-in-differences analyses
-  \item Use directed acyclic graphs (DAGs) to reason about causal relationships and confounding
-  \item Critically evaluate causal claims in published research
-  \item Conduct original causal inference analyses using R or Stata
+
+  \item Articulate the fundamental problem of causal inference and distinguish
+    causal from descriptive research questions
+
+  \item Design and analyze basic randomized experiments, including power
+    analysis.
+
+  \item Understand, implement, interpret, and evaluate causal inferences that
+    depend on adjusting for confounders (including matching and parametric
+    adjustment)
+  
+  \item Understand, implement, interpret, and evaluate causal inferences that
+    depend on instrumental variables and other discontinuities (RDD)
+
+  \item Understand, implement, interpret, and evaluate causal inferences that
+    depend on assumptions about how outcomes change over time in panel data.
+
 \end{itemize}
 
-\section*{\faIcon{calendar-alt}\ Course Schedule}
+    To these ends I have designed a series of activities that should (1)
+    give you opportunities to practice working with data and reasoning
+    about statistics and (2) raise questions for discussion each week.
 
-% HOW TO USE: \classweek{N} prints the date N weeks after firstclassdate
-% - Week numbers are offsets: 0 = first class, 1 = second week, etc.
-% - To add spring break: skip a number (e.g., go from 7 to 9, leaving 8 as spring break)
-% - To insert a new week: increment all subsequent week numbers by 1
-% - To delete a week: decrement all subsequent week numbers by 1
-% - To reorder: just swap the offset numbers
+    \textbf{I do not lecture.} Rather, each week we will meet to engage with the
+    questions that you have.
 
-\subsection*{Week 1: \classweek{0} -- Introduction and the Fundamental Problem}
-\begin{itemize}[leftmargin=*]
-  \item The fundamental problem of causal inference
-  \item Potential outcomes framework
-  \item Average treatment effects (ATE, ATT, ATC)
-  \item Assignment mechanisms
-\end{itemize}
+    \subsection{Explorations}
 
-\subsection*{Week 2: \classweek{1} -- Randomized Experiments I}
-\begin{itemize}[leftmargin=*]
-  \item Types of random assignment
-  \item Fisher's exact test and randomization inference
-\end{itemize}
+    Every week or so, I will ask you to complete a short assignment that
+    encourages you to engage creatively with the topics of that section of the
+    course. I anticipate that you will work on most of these assignments in
+    groups and a few alone  and that each of you will come to class prepared to
+    discuss them.  I don't think that the groups should have more than 3 people
+    in them. However, I'm willing to have larger groups if you talk with me
+    about it. The point of the explorations is for you to (1) practice learning
+    on your own (making mistakes, confronting confusing error messages, finding
+    help online and elsewhere) and in a group (this is how you will learn about
+    statistics for the rest of your career, so these explorations are supposed
+    to help you to practice it now), (2) engage with the topic of the week so
+    that you are prepared to come to class with questions and ideas, (3)
+    practice coding and confronting coding errors.
 
-\subsection*{Week 3: \classweek{2} -- Randomized Experiments II}
-\begin{itemize}[leftmargin=*]
-  \item Block randomization and stratification
-  \item Cluster randomization
-  \item Power analysis and sample size calculations
-  \item Compliance and intention-to-treat analysis
-\end{itemize}
+    \subsection{Final projects}
 
-\subsection*{Week 4: \classweek{3} -- Observational Studies and Selection Bias}
-\begin{itemize}[leftmargin=*]
-  \item Sources of bias in observational studies
-  \item Selection on observables vs. unobservables
-  \item Conditional independence assumption
-  \item Introduction to confounding
-\end{itemize}
+    Each of you will produce a short replication paper by the end of the
+    term.\footnote{The idea comes from
+        \href{https://gking.harvard.edu/papers}{Gary King's assignment to his
+        first year PhD students}. I encourage you read that website and
+        associated paper in which King explains his ideas. Our version will differ
+    a little from his.} The idea is to practice using your new skills and concepts
+    as applied to a topic of interest to you --- but in a very targeted way. The
+    idea is to understand what someone else did in the past, and perhaps to improve
+    upon it now.
 
-\subsection*{Week 5: \classweek{4} -- Matching Methods I}
-\begin{itemize}[leftmargin=*]
-  \item Exact matching
-  \item Propensity score and Mahalanobis score matching
-  \item Assessing balance
-  \item Sensitivity analysis
-\end{itemize}
+    You should find a paper that uses statistical methods that you are willing
+    to work to understand this term and where the data are available (ideally
+    the data are easy to download, you can also contact the author of the paper
+    after discussion with me).
 
-\subsection*{Week 6: \classweek{5} -- Matching Methods II}
-\begin{itemize}[leftmargin=*]
-  \item Weighting methods (IPW, AIPW)
-  \item Entropy balancing
-  \item Synthetic control methods
-\end{itemize}
+    You are allowed to do this work with a co-author or alone as you see fit.
 
-\subsection*{Week 7: \classweek{6} -- Regression and Causal Inference}
-\begin{itemize}[leftmargin=*]
-  \item Regression as matching
-  \item Parametric vs. non-parametric approaches
-  \item Fixed effects models
-  \item The debate over regression adjustments
-\end{itemize}
+    I will be providing more detailed guidance about this assignment as the
+    term goes on.
 
-\subsection*{Week 8: \classweek{7} -- Instrumental Variables I}
-\begin{itemize}[leftmargin=*]
-  \item The instrumental variables approach
-  \item Identifying assumptions (relevance and exclusion)
-  \item Two-stage least squares (2SLS)
-  \item Weak instruments problem
-\end{itemize}
+    \subsection{My Expectations}
 
-% SPRING BREAK: Week 8 (offset 8) is skipped -- no class on \SetDate[\firstclassdate]\AdvanceDate[56]\classformat\today
+    \begin{enumerate}
+        \item I assume you are eager to learn. Eagerness,
+            curiosity and excitement will impel your energetic engagement with the
+            class throughout the term. If you are bored, not curious, or unhappy
+            about the class you should come and talk with me
+            immediately. Energetic engagement manifests itself in meeting with
+            your classmates outside of the class, in asking questions during the
+            class, and in taking the assignments seriously.
 
-\subsection*{Week 9: \classweek{9} -- Instrumental Variables II}
-\begin{itemize}[leftmargin=*]
-  \item Local average treatment effects (LATE)
-  \item Testing IV assumptions
-  \item Applications: natural experiments in political science
-  \item Encouragement designs
-\end{itemize}
+        \item I assume you are ready to work. Learning requires work. As much as
+            possible I will encourage you to link practice directly to application
+            rather than merely as a opportunity for me to rank you among your peers.
+            Making work about learning rather than ranking, however, will make our work
+            that much more difficult and time consuming. You will make errors. These
+            errors are opportunities for you to learn --- some of your learning will be
+            about how to help yourself and some will be about statistics. If you have
+            too much to do this term consider dropping the course. Graduate
+            school is a place for you to develop and begin to pursue your own
+            intellectual agendas: this course may be important for you this term, or it
+            may not. That is up for you to decide.
 
-\subsection*{Week 10: \classweek{10} -- Regression Discontinuity Designs}
-\begin{itemize}[leftmargin=*]
-  \item Sharp vs. fuzzy RD designs
-  \item Identification assumptions
-  \item Bandwidth selection and specification tests
-  \item Applications: electoral thresholds and policy discontinuities
-\end{itemize}
+        \item  I assume some previous engagement with high school mathematics.
 
-\subsection*{Week 11: \classweek{11} -- Difference-in-Differences}
-\begin{itemize}[leftmargin=*]
-  \item The parallel trends assumption
-  \item Two-way fixed effects models
-  \item Event studies and pre-trends testing
-  \item Recent developments: staggered adoption and heterogeneous effects
-\end{itemize}
+        \item You should ask questions when you don't understand things;
+            chances are you're not alone.  \textbf{This class is an opportunity
+            to practice courage:} I expect you to make a guess when I ask a
+            question (in writing or in person), I expect that you will ask a
+            question when you have a problem.
 
-\subsection*{Week 12: \classweek{12} -- Panel Data and Fixed Effects}
-\begin{itemize}[leftmargin=*]
-  \item Panel data methods for causal inference
-  \item Individual and time fixed effects
-  \item First differences and within estimators
-  \item Dynamic panel models
-\end{itemize}
+        \item \textbf{Do the work.} This
+            does not mean divide the work up among your classmates so that you only do
+            part of the work. Each person should engage with all of the work even if the
+            people who writes it up changes from week to week.
 
-\subsection*{Week 13: \classweek{13} -- Directed Acyclic Graphs (DAGs)}
-\begin{itemize}[leftmargin=*]
-  \item Graphical representation of causal models
-  \item Confounders, mediators, and colliders
-  \item d-separation and conditional independence
-  \item Using DAGs to guide analysis strategies
-\end{itemize}
+        \item 	All papers written in this class will assume familiarity with the
+            principles of good writing in \textcite{beck:1986}.
 
-\subsection*{Week 14: \classweek{14} -- Mediation and Spillover Effects}
-\begin{itemize}[leftmargin=*]
-  \item Direct and indirect effects
-  \item Mediation analysis
-  \item Interference and spillover effects
-  \item Network experiments
-\end{itemize}
+        \item 	All final written work will be turned in as pdf files unless we have another
+            specific arrangement.\footnote{For example, if you have some reason why pdf
+                files make your life especially difficult, then of course I will work with
+            you find another format.} I will not accept Microsoft, Apple, or any other
+            proprietary format.
+    \end{enumerate}
 
-\subsection*{Week 15: \classweek{15} -- Advanced Topics and Frontiers}
-\begin{itemize}[leftmargin=*]
-  \item Machine learning for causal inference
-  \item Double/debiased machine learning
-  \item Text as treatment and outcome
-  \item Causal inference with qualitative data
-\end{itemize}
+    \subsection{Late Work}
+    I do not like evaluation for the sake of evaluation. Evaluation should
+    provide opportunities for learning. So, if you'd prefer to spend
+    more time using the paper assignment in this class to learn more, I am
+    happy for you to take that time. I will not, however, entertain late
+    submissions for any subsidiary paper assignments or other homeworks that are due
+    throughout the term. If you think that you and/or the rest of the
+    class have a compelling reason to change the due date on one of those
+    assignments, let me know in advance and I will probably just change
+    the due date for the whole class.
 
-\subsection*{Week 16: \classweek{16} -- Student Presentations}
-\begin{itemize}[leftmargin=*]
-  \item Final project presentations
-  \item Course wrap-up and discussion
-\end{itemize}
+    \subsection{Incompletes} Incomplete grades at the end of the term are fine
+    in theory but terrible in practice. I urge you to avoid an incomplete in
+    this class. If you must take an incomplete, you must give me \emph{at
+    least} 2 months from the time of turning in an incomplete before you can
+    expect a grade from me and it may well take me much longer. This means that
+    if your fellowship, immigration status, or job depends on erasing an
+    incomplete in this class, you should not leave this incomplete until the
+    last minute.
 
-\section*{\faIcon{pencil-alt}\ Assignments and Grading}
+    \subsection{Grades are Feedback}
 
-\begin{tabular}{@{}ll}
-\textbf{Problem Sets (4)} & 40\% (10\% each) \\
-\textbf{Midterm Exam} & 25\% \\
-\textbf{Final Research Paper} & 25\% \\
-\textbf{Class Participation} & 10\% \\
-\end{tabular}
+    Humans need feedback to close the gap between  intention and action. They
+    also need feedback to feel good about their progress and to motivate them.
+    In this class I will use grades as feedback. All grades except for the
+    final grade will be satisfactory, unsatisfactory (with the possibility of
+    "outstanding"), and fail. These map roughly onto  A+=outstanding,
+    A=satisfactory, C=unsatisfactory, and F=fail (i.e. you didn't try).
 
-\subsection*{Problem Sets}
-Four problem sets will be assigned throughout the semester, combining theoretical questions with applied data analysis. Students may work in groups of up to three but must submit individual write-ups. Problem sets are due at the beginning of class on the assigned date.
+    I'll calculate your grade for the course this way: 30\% daily R (you have 5
+    days out of every 7 to turn it in, no late work accepted, satisfactory if
+    you turned it in, fail if you didn't turn it in); 40\% explorations (when
+    you turn it in as a group everyone in the group receives the same grade,
+    satisfactory if you are creative and thoughtful and diligent,
+    unsatisfactory if you are not or if you don't seem to be getting the
+    concepts, no late work accepted); 20\% replication paper; 10\% attendance
+    (satisfactory if you show up, fail if not).
 
-\subsection*{Midterm Exam}
-A take-home midterm exam will be distributed in Week 8 and due one week later. The exam will cover material from the first half of the course and test both conceptual understanding and analytical skills.
+    You can miss two classes without grade penalty.
 
-\subsection*{Final Research Paper}
-Students will write a research paper (15-20 pages) that applies causal inference methods to a substantive political science question. The paper should include a clear research question, literature review, description of data and methods, results, and discussion. A proposal is due in Week 10, and the final paper is due during finals week.
+    I will drop your lowest exploration grade as well.
 
-\subsection*{Class Participation}
-Active participation in class discussions, including presenting and critiquing research designs, is expected. Students should come prepared to discuss the assigned readings.
+    Because moments of evaluation are also moments of learning in this
+    class, I do not curve. If you all perform at 100\%, then I will give
+    you all As.
 
-\section*{\faBookOpen\ Required Texts}
+    You can redo any  evaluation or the final paper in order  to  increase
+    your grade on that  assignment. If you want to resubmit something already
+    graded, you need  to let me know  in advance so that  I  can make  time to
+    grade it again. If you want to resubmit work after the end of the term,
+    that is also ok, but I may take many months to grade that work.
 
-The following books are required and available at the bookstore or online:
+    \subsection{Computing} We will be using R~in class so those of you with
+    laptops available should bring them to class. Of course, I will not
+    tolerate the use of computers for anything other than class related work
+    during active class time. Please install R on your computers before the
+    first class session.
 
-\begin{itemize}[leftmargin=*]
-  \item Gerber, Alan S., and Donald P. Green. \textit{Field Experiments: Design, Analysis, and Interpretation}. W.W. Norton \& Company.
-  \item Angrist, Joshua D., and Jörn-Steffen Pischke. \textit{Mostly Harmless Econometrics: An Empiricist's Companion}. Princeton University Press.
-  \item Cunningham, Scott. \textit{Causal Inference: The Mixtape}. Yale University Press. (Also available free online)
-\end{itemize}
+    As you work on your papers, you will also learn to write about data
+    analysis in a way that sounds and looks professional by using either
+    R+markdown or Sweave (R+\LaTeX). No paper will be accepted without a code
+    appendix or reproduction Github repository made available to me. No paper
+    will be accepted unless it is in Portable Document Format
+    (\href{http://en.wikipedia.org/wiki/Portable_Document_Format}{pdf}). No
+    paper will be accepted with cut and pasted computer output in the place of
+    well presented and replicable figures and tables. Although good empirical
+    work requires that the analyst understand her tools, she must also think
+    about how to communicate effectively: ability to reproduce past analyses
+    and clean and clear presentations of data summaries are almost as important
+    as clear writing in this regard.
 
-Additional readings will be posted on Canvas.
+    \section{Books}
+    I'm am not requiring any particular books this term. The readings will be
+    drawn from a variety of sources. I will try to make most of them
+    available to you as we go if you can't find them easily online yourselves.
 
-\section*{\faLaptop\ Software}
+    \subsection{Recommended}
+    No book is perfect for all students. I suggest you ask around, look at
+    other syllabi online, and just browse the shelves at the library and
+    used bookstores to find books that make things clear to you.  I will be
+    adding some recommendations here. Let me know now if you have favorites.
 
-Students should be proficient in R or Stata. All examples in class will be demonstrated in R, but students may use Stata for assignments if preferred. We will use various R packages including \texttt{tidyverse}, \texttt{estimatr}, \texttt{MatchIt}, \texttt{rdrobust}, and others.
+    If you discover any books or websites that are particularly useful to you, please
+    alert me and the rest of the class about them. Thanks!
 
-\section*{\faExclamationTriangle\ Course Policies}
-
-\subsection*{Late Work}
-Late problem sets will be penalized 10\% per day. Extensions may be granted for documented emergencies if requested in advance.
-
-\subsection*{Academic Integrity}
-All students are expected to follow the University of Illinois Student Code regarding academic integrity. Plagiarism or cheating will result in a failing grade for the assignment and may lead to further disciplinary action.
+    \subsection{Academic Integrity} According to the Student Code, `It is
+    the responsibility of each student to refrain from infractions of
+    academic integrity, from conduct that may lead to suspicion of such
+    infractions, and from conduct that aids others in such infractions.’
+    Please know that it is my responsibility as an instructor to uphold the
+    academic integrity policy of the University, which can be found here:
+    \url{http://studentcode.illinois.edu/article1_part4_1-401.html}.
 
 \subsection*{Accessibility}
 Students with disabilities who require accommodations should contact Disability Resources and Educational Services (DRES) and provide the instructor with accommodation letters as soon as possible.
@@ -310,11 +358,198 @@ The University of Illinois offers a range of mental health services. If you are 
 \subsection*{Diversity and Inclusion}
 The Political Science Department is committed to building an inclusive environment where all students feel welcomed and supported. We value diverse perspectives and encourage respectful dialogue.
 
+\section*{\faIcon{calendar-alt}\ Course Schedule}
+
+    \textbf{Note: } This schedule is preliminary and subject to change. If
+    you miss a class make sure you contact me or one of your colleagues to
+    find out about changes.
+
+
+    \textbf{Data: } I'll be bringing in data that I have on hand. This
+    means our units of analysis will often be individual people or perhaps
+    political or geographic units, mostly in the United States. I'd love
+    to use other data, so feel free to suggest and provide it to me ---
+    come to office hours and we can talk about how to use your favorite
+    datasets in the class.
+
+    % HOW TO USE: \classweek{N} prints the date N weeks after firstclassdate
+% - Week numbers are offsets: 0 = first class, 1 = second week, etc.
+% - To add spring break: skip a number (e.g., go from 7 to 9, leaving 8 as spring break)
+% - To insert a new week: increment all subsequent week numbers by 1
+% - To delete a week: decrement all subsequent week numbers by 1
+% - To reorder: just swap the offset numbers
+
+\subsection*{Week 1: \classweek{0} -- Introduction to the class, the Fundamental Problem of Causal Inference, Working with Data}
+\begin{itemize}[leftmargin=*]
+  \item The fundamental problem of causal inference and the potential outcomes framework
+  \item Causal effects as functions of potential outcomes including individual causal effects and average treatment effects (ATE, ATT, ATC)
+  \item Directed Acyclic Graphs (DAGs) to help us reason and communicate about causal relationships: the Backdoor criterion and colliders
+  \item Workflow for credibility
+\end{itemize}
+\textbf{Required:} \textcite{holland1986}; \textcite{rosenbaum2017}, Ch. 1--2; \textcite{cunningham2021causal} Ch. 3--4; \textcite{bowers2016future}; \textcite{bowers2022latex} (no need to do the exercises)
+\textbf{Recommended:} \textcite{leavittbowers2020}; \textcite{waldner2025book} Ch. 2 up through \S 2.2.2; TBA Glynn on front door adjustment.
+
+\textbf{Due:}
+
+\subsection*{Week 2: \classweek{1} -- Randomized Experiments I}
+\begin{itemize}[leftmargin=*]
+  \item Types of random assignment
+  \item Fisher's exact test and randomization inference
+\end{itemize}
+\textbf{Required:} \textcite{rosenbaum2017}, Ch.\ 3; \textcite{fisher1935a}, \S 5--10, pp.\ 11--19.\\
+\textbf{Recommended:} \textcite{rosenbaum2002a}, pp.\ 27--49; \textcite{rosenbaum2010}, Ch.\ 2.
+
+\subsection*{Week 3: \classweek{2} -- Randomized Experiments II}
+\begin{itemize}[leftmargin=*]
+  \item Block randomization and stratification
+  \item Cluster randomization
+  \item Power analysis and sample size calculations
+  \item Compliance and intention-to-treat analysis
+\end{itemize}
+\textbf{Required:} \textcite{gerbergreen2012}, Ch.\ 2--4; \textcite{lin2013}.\\
+\textbf{Recommended:} \textcite{aronowmiddleton2013}; \textcite{middletonaronow2015}; \textcite{miratrixetal2013}.
+
+\subsection*{Week 4: \classweek{3} -- Observational Studies and Selection Bias}
+\begin{itemize}[leftmargin=*]
+  \item Sources of bias in observational studies
+  \item Selection on observables vs. unobservables
+  \item Conditional independence assumption
+  \item Introduction to confounding
+\end{itemize}
+\textbf{Required:} \textcite{bindrubin2019}; \textcite{gelmanhill2006}, \S 9.0--9.2; \textcite{berk2010}.\\
+\textbf{Recommended:} \textcite{rosenbaum2017}, Ch.\ 5; \textcite{cochran1965}; \textcite{achen2002}.
+
+\subsection*{Week 5: \classweek{4} -- Matching Methods I}
+\begin{itemize}[leftmargin=*]
+  \item Exact matching
+  \item Propensity score and Mahalanobis score matching
+  \item Assessing balance
+  \item Sensitivity analysis
+\end{itemize}
+\textbf{Required:} \textcite{rosenbaum2017}, pp.\ 65--90; \textcite{rosenbaum2020}; \textcite{hansenbowers2008}.\\
+\textbf{Recommended:} \textcite{rosenbaum2002a}, Ch.\ 3, \S 3.1--3.2, 3.4--3.5; \textcite{bifulco2012}; \textcite{arceneauxetal2010}.\\
+\textbf{Application:} \textcite{cerdaetal2012}.
+
+\subsection*{Week 6: \classweek{5} -- Matching Methods II}
+\begin{itemize}[leftmargin=*]
+  \item Weighting methods (IPW, AIPW)
+  \item Entropy balancing
+  \item Synthetic control methods
+\end{itemize}
+\textbf{Required:} \textcite{rosenbaum2017}, pp.\ 90--96; \textcite{hansen2011}; \textcite{chattopadhyayetal2020}.\\
+\textbf{Recommended:} \textcite{rubin1979}; \textcite{hoetal2007}; \textcite{hainmueller2012}; \textcite{zubizarreta2015}.
+
+\subsection*{Week 7: \classweek{6} -- Regression and Causal Inference}
+\begin{itemize}[leftmargin=*]
+  \item Regression as matching
+  \item Parametric vs. non-parametric approaches
+  \item Fixed effects models
+  \item The debate over regression adjustments
+\end{itemize}
+\textbf{Required:} \textcite{gerbergreen2012}, Ch.\ 4; \textcite{rosenbaum2002c}; \textcite{lin2013}; \textcite{berk2004}, Ch. 5. 
+.\\
+\textbf{Recommended:} \textcite{freedman2008a}; \textcite{freedman2008b}; \textcite{freedman2008c}; \textcite{samii2012}; \textcite{abadieetal2020}.
+
+\subsection*{Week 8: \classweek{7} -- Instrumental Variables I}
+\begin{itemize}[leftmargin=*]
+  \item The instrumental variables approach
+  \item Identifying assumptions (relevance and exclusion)
+  \item Two-stage least squares (2SLS)
+  \item Weak instruments problem
+\end{itemize}
+\textbf{Required:} \textcite{gerbergreen2012}, Ch.\ 5--6; \textcite{rosenbaum2010}, \S 5.3; \textcite{rosenbaum1996}.\\
+\textbf{Recommended:} \textcite{angristetal1996}; \textcite{imbensrosenbaum2005}.\\
+\textbf{Application:} \textcite{albertsonlawrence2009}.
+
+% SPRING BREAK: Week 8 (offset 8) is skipped -- no class on \SetDate[\firstclassdate]\AdvanceDate[56]\classformat\today
+
+\subsection*{Week 9: \classweek{9} -- Instrumental Variables II}
+\begin{itemize}[leftmargin=*]
+  \item Local average treatment effects (LATE)
+  \item Testing IV assumptions
+  \item Applications: natural experiments in political science
+  \item Encouragement designs
+\end{itemize}
+\textbf{Required:} \textcite{gerbergreen2012}, Ch.\ 7; \textcite{angristetal1996}.\\
+\textbf{Recommended:} \textcite{rosenbaum2002c}, \S 2.3; \textcite{hansenbowers2008}; \textcite{kangetal2018}.
+
+\subsection*{Week 10: \classweek{10} -- Regression Discontinuity Designs}
+\begin{itemize}[leftmargin=*]
+  \item Sharp vs. fuzzy RD designs
+  \item Identification assumptions
+  \item Bandwidth selection and specification tests
+  \item Applications: electoral thresholds and policy discontinuities
+\end{itemize}
+\textbf{Required:} \textcite{cattaneoetal2020}; \textcite{caugheysekhon2011}; \textcite{imbenslemieux2008}.\\
+\textbf{Recommended:} \textcite{lee2008}; \textcite{gelmanimbens2019}; \textcite{mccrary2008}; \textcite{saleshansen2020}; \textcite{angristpischke2008}, Ch.\ 6.
+
+\subsection*{Week 11: \classweek{11} -- Difference-in-Differences}
+\begin{itemize}[leftmargin=*]
+  \item The parallel trends assumption
+  \item Two-way fixed effects models
+  \item Event studies and pre-trends testing
+  \item Recent developments: staggered adoption and heterogeneous effects
+\end{itemize}
+\textbf{Required:} \textcite{rosenbaum2017}, pp.\ 162--167; \textcite{gerbergreen2012}, \S 4.1; \textcite{angristpischke2008}, Ch.\ 5.\\
+\textbf{Recommended:} \textcite{lechner2011}; \textcite{manskipepper2018}; \textcite{dingli2019}; \textcite{imaikim2021}.
+
+\subsection*{Week 12: \classweek{12} -- Panel Data and Fixed Effects}
+\begin{itemize}[leftmargin=*]
+  \item Panel data methods for causal inference
+  \item Individual and time fixed effects
+  \item First differences and within estimators
+  \item Dynamic panel models
+\end{itemize}
+\textbf{Required:} \textcite{imaikim2021}; \textcite{zubizarretakeele2017}.\\
+\textbf{Recommended:} \textcite{yangetal2016}; \textcite{pimenteletal2018}; \textcite{savjehigginssekhon2021}.
+
+\subsection*{Week 13: \classweek{13} -- Directed Acyclic Graphs (DAGs)}
+\begin{itemize}[leftmargin=*]
+  \item Graphical representation of causal models
+  \item Confounders, mediators, and colliders
+  \item d-separation and conditional independence
+  \item Using DAGs to guide analysis strategies
+\end{itemize}
+\textbf{Required:} \textcite{morganwinship2015}, Ch.\ 3; \textcite{pearl2009}, Ch.\ 1--2.\\
+\textbf{Recommended:} \textcite{elwert2013}; \textcite{cinellietal2022}.
+
+\subsection*{Week 14: \classweek{14} -- Mediation and Spillover Effects}
+\begin{itemize}[leftmargin=*]
+  \item Direct and indirect effects
+  \item Mediation analysis
+  \item Interference and spillover effects
+  \item Network experiments
+\end{itemize}
+\textbf{Required:} \textcite{rosenbaum2007a}; \textcite{bowersetal2013}; \textcite{aronowsamii2017}.\\
+\textbf{Recommended:} \textcite{manski2013}; \textcite{atheyecklesimbens2018}; \textcite{imaietal2011}.
+
+\subsection*{Week 15: \classweek{15} -- Advanced Topics and Frontiers}
+\begin{itemize}[leftmargin=*]
+  \item Machine learning for causal inference
+  \item Double/debiased machine learning
+  \item Text as treatment and outcome
+  \item Causal inference with qualitative data
+\end{itemize}
+\textbf{Required:} \textcite{atheyimbens2017}; \textcite{chernozhukovetal2018}.\\
+\textbf{Recommended:} \textcite{wagerathey2018}; \textcite{egamietal2018}; \textcite{feder2022}.
+
+\subsection*{Week 16: \classweek{16} -- Student Presentations}
+\begin{itemize}[leftmargin=*]
+  \item Final project presentations
+  \item Course wrap-up and discussion
+\end{itemize}
+
+
+
 \vspace{1cm}
 
 \begin{center}
 \color{lightgray}\small
 This syllabus is subject to change. Any modifications will be announced in class and posted on Canvas.
 \end{center}
+
+\clearpage
+\section*{\faBook\ References}
+\printbibliography[heading=none]
 
 \end{document}

@@ -42,6 +42,10 @@ pdflatex syllabus.tex  # Run twice for proper formatting
 
 The output will be `syllabus.pdf`.
 
+### Generated Files
+
+LaTeX compilation produces `syllabus.pdf` plus build artifacts at the repo root (e.g., `*.aux`, `*.log`, `*.out`, `*.fls`, `*.fdb_latexmk`). Use `make clean` to remove these files.
+
 ## Customization
 
 ### Changing Course Dates

@@ -1,5 +1,58 @@
 
-# 27-01-2025
+# 03-02-2026
+
+## Admin
+
+## Next time
+
+We have been making causal inferences based on a assumptions:
+unconfounded/ignorability, SUTVA, excludability (see GG)
+
+We will start releasing these assumptions starting with unconfounded and we
+will replace this assumption with something that economists call "selection on
+observables".
+
+## Last time: Quiz and Review
+
+How would you explain the HL point estimate to someone?
+
+How would you respond to requests for identification strategy?
+
+How is randomization the "reasoned basis for inference"? Why do people like
+  this?
+  - An example of randomization-based inference for estimation of average
+    causal effects?
+  - An example of randomization-based inference for testing hypotheses about
+    individual causal effects?
+  - Notice: "randomization-based inference" need not **use** permutations, it
+    could rely on the central limit theorem.
+
+| Assumption | What it says | Justified by |
+|------------|--------------|---------------|
+| **Exchangeability** | $Y(1), Y(0) \perp\!\!\!\perp Z \mid X$ | Randomization  |
+| **Positivity** | Everyone has positive probability of each treatment | Design|
+| **Consistency** | $Y_i = Y_i(Z_i)$; observed = potential outcome for treatment received | Well-defined, single-version treatment |
+| **No interference** | $Y_i(z_i, \mathbf{z}_{-i}) = Y_i(z_i)$ | Design|
+| **Excludability** | Assignment affects outcomes only through receipt | Symmetric handling of treatment arms; blinding |
+
+
+### Notes on Terminology
+
+- **Exchangeability** is Hernán and Robins's term. Rubin uses **ignorability** for essentially the same idea. Random assignment *guarantees* exchangeability rather than assuming it.
+
+- **SUTVA** (Stable Unit Treatment Value Assumption) bundles consistency and no interference together. Keeping them separate clarifies which assumption is doing the work when problems arise.
+
+- **Excludability** is Gerber and Green's term. It corresponds to the **exclusion restriction** in instrumental variables estimation and becomes crucial when there is non-compliance (i.e., when assignment $Z_i$ and receipt $D_i$ diverge).
+
+## Today
+
+How should we decide whether or not to do an experiment at all?
+
+What is statistical power? 
+
+Why doesn't it make sense to say, "My estimator of the average treatment effect has low statistical power."
+
+# 27-01-2026
 
 ## Admin
 

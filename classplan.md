@@ -1,4 +1,58 @@
 
+# 09-02-2026
+
+## Admin
+
+## Next time
+
+Non-bipartite
+
+## Last time: Quiz and Review
+
+Statistical power?
+
+What were the assumptions that we needed to interpret statistical inference
+from a randomized experiment in causal terms?
+
+For hypothesis tests of the sharp null hypothesis of no effects at all?
+
+ - Randomization/Exchangeability/Ignorability
+ - Consistency (only one version of treatment)
+ - Excludability (Z -> D -> Y not Z -> non-D -> Y)
+
+To estimate average causal effects (the above plus)
+ - Positivity 
+ - No interference
+
+What about for the hypothesis of some effects for all? or some effects for
+some? (i.e. to calculate confidence intervals)
+
+What about for the Hodges-Lehman point estimate?
+
+What about to estimate the ATT or ATC versus ATE?
+
+Re-randomization
+More on blocking
+
+Bayesian approaches to causal inference in experiments (digression into Causal
+Forests and Bayesian Regression Tree Models for Causal Inference)
+
+## Today: Changing assumptions
+
+Say we have a **observational study** such that we can no longer sustain the
+assumptions that arise from randomization. What might we do? **What assumptions
+can we justify** using **choices that we make** about the data in our hands?
+
+How does stratification work to help us with these assumptions? Strengths and
+weaknesses versus other approaches?
+
+What about formal sensitivity analysis? (How is this different from trying both
+a logit model and OLS? Or dropping some observations and adding some
+observations? i.e. what is the difference between what Rosenbaum calls
+"sensitivity analysis" and a "fragility analysis" (or "robustness analysis")?
+
+
+
 # 03-02-2026
 
 ## Admin

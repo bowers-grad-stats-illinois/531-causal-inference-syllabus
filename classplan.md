@@ -1,4 +1,122 @@
 
+
+# 10-03-2026
+
+## Admin
+
+## Next time
+
+The CACE/LATE again but this time using discontinuity as an instrument. There
+are two main perspectives: "regression discontinuity designs (RDD)" with one
+set of assupmtions and what I'll call "natural experiment" (or 
+"quasi-experiment" but people might use that to refer to matched designs too)
+with another set of assumptions.
+
+## Last time: Quiz and Review
+
+Say we have a **observational study** such that we can no longer sustain the
+assumptions that arise from randomization. What might we do? **What assumptions
+can we justify** using **choices that we make** about the data in our hands?
+
+How does stratification work to help us with these assumptions? 
+
+How does linear regression aka "covariance adjustment" help us with these assumptions?
+
+What about formal sensitivity analysis? (How is this different from trying both
+a logit model and OLS? Or dropping some observations and adding some
+observations? i.e. what is the difference between what Rosenbaum calls
+"sensitivity analysis" and a "fragility analysis" (or "robustness analysis")?
+
+## Today: Learning about the causal effect of something we didn't randomize. The causal effect on compliers.
+
+Your questions.
+
+What are the assumptions that allow us to learn about the CACE/LATE using data
+that we observe? Let's list and explain them and ask how a researcher might
+argue for them and/or build evidence for them.
+
+Go over the exploration?
+
+
+# 03-03-2026
+
+## Admin
+
+## Next time
+
+CACE/LATE --- moving away from conditional ignorability (conditional on the
+functional form and other assumptions of our linear adjustment, conditional on
+the stratification)/selection on observables to other assumptions.
+
+## Last time: Quiz and Review
+
+Say we have a **observational study** such that we can no longer sustain the
+assumptions that arise from randomization. What might we do? **What assumptions
+can we justify** using **choices that we make** about the data in our hands?
+
+How does stratification work to help us with these assumptions? 
+
+What about formal sensitivity analysis? (How is this different from trying both
+a logit model and OLS? Or dropping some observations and adding some
+observations? i.e. what is the difference between what Rosenbaum calls
+"sensitivity analysis" and a "fragility analysis" (or "robustness analysis")?
+
+Say we have country-year data? Or other longitudinal data? How does risk-set
+matching work to answer substantively interesting questions often addressed
+using other approaches? What are the key assumptions we need to make for causal
+inference? What might be sensitivity analyses of those assumptions.
+
+Rosenbaum describes non-bipartite matching as "matching without groups". What
+are other applications of non-bipartite matching?
+
+## Today: What are we doing when we do linear regression? What does this have to do with causal inference?
+
+Your questions.
+
+What are different ways that we can express what is happening with OLS? (I can think of at least 3)
+
+Why do we care to understand the technicalities of OLS in a course on causal
+inference?
+
+What is a dfbeta? Why should we care?
+
+
+
+
+# 17-02-2026
+
+## Admin
+
+## Next time
+
+No class. Work on your final projects
+
+We could revisit the problems of parametric approaches to selection on
+observables OR move onto Instrumental Variables. (What to do when you can
+randomize an **instrument** but not **actual treatment**.)
+
+## Last time: Quiz and Review
+
+Say we have a **observational study** such that we can no longer sustain the
+assumptions that arise from randomization. What might we do? **What assumptions
+can we justify** using **choices that we make** about the data in our hands?
+
+How does stratification work to help us with these assumptions? Strengths and
+weaknesses versus other approaches?
+
+What about formal sensitivity analysis? (How is this different from trying both
+a logit model and OLS? Or dropping some observations and adding some
+observations? i.e. what is the difference between what Rosenbaum calls
+"sensitivity analysis" and a "fragility analysis" (or "robustness analysis")?
+
+## Today: Non-bipartite matching (stratification when you have more than one value for "treatment") and Risk Set matching.
+
+Your questions.
+
+What were the key decisions you need to make for causal inference from risk set matching?
+
+
+
 # 09-02-2026
 
 ## Admin

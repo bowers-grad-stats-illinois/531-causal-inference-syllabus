@@ -157,6 +157,24 @@ assumptions to enable you to make causal inferences from data and designs that
 help you advance understanding of politics and society in your substantive
 work.
 
+For nearly every problem we encounter, methodologists across disciplines ---
+econometricians, statisticians, political methodologists, epidemiologists,
+and others --- have developed more than one credible approach. Some
+approaches estimate average causal effects defined in terms of
+counterfactual outcomes; others test hypotheses about those effects without
+committing to a point estimate. Some ground their inferences in models for
+the treatment assignment process (how units came to be treated); others
+ground them in models for the outcome process (how outcomes would have
+evolved absent treatment). Some derive their statistical properties from
+the randomization that produced the data; others derive them from
+assumptions about sampling from a larger population. These are not
+competing schools where one is right and the rest are wrong. They are
+complementary tools that rest on different assumptions and answer subtly
+different questions. Throughout this course we will try to present at
+least two approaches to each topic, so that you develop the judgment to
+choose --- and to explain your choice --- when confronting a causal
+question in your own work.
+
 \pdfbookmark[1]{Learning Objectives}{objectives}
 \section*{\faBullseye\ Learning Objectives}
 
@@ -591,69 +609,107 @@ The Political Science Department is committed to building an inclusive environme
   \item \fullcite{angristpischke2008}, Ch.\ 6
 \end{enumerate}
 
-\weekheading{Panel and Multilevel Data: Using unconfoundedness via risk-set matching and weighting }
+%\weekheading{Panel and Multilevel Data: Using unconfoundedness via risk-set matching and weighting }
+%\begin{itemize}[leftmargin=*]
+%  \item Making and strengthening arguments for unconfoundedness using stratification with longitudinal/panel data
+%  \item Multilevel matching (when interventions are at one level (like schools) and outcomes are measured at another level (like students))
+%\end{itemize}
+%\textbf{Required:}
+%\begin{enumerate}[noitemsep,leftmargin=*]
+%  \item \fullcite{rosenbaum2020book}, Ch. 13
+%  \item \fullcite{rosenbaum2017}, pp. 227--229
+%  \item \fullcite{zubizarretakeele2017}
+%  \item \fullcite{pimenteletal2018}
+%\end{enumerate}
+%\textbf{Recommended:} 
+
+\weekheading{From Counterparts to Difference-in-Differences: Assumptions About Outcomes}
 \begin{itemize}[leftmargin=*]
-  \item Making and strengthening arguments for unconfoundedness using stratification with longitudinal/panel data
-  \item Multilevel matching (when interventions are at one level (like schools) and outcomes are measured at another level (like students))
+  \item The shift from assignment assumptions to outcome assumptions: what if we cannot control or exploit the treatment assignment mechanism?
+  \item Rosenbaum's counterparts: using analogous comparisons (not true controls) to reinforce causal claims --- and their limitations, including the log transformation problem
+  \item The parallel trends assumption and the ATT estimand
+  \item DiD by hand, via TWFE regression, and via matched designs
+  \item Bracketing: DiD vs.\ lagged outcome adjustment as bounds on the ATT
+  \item Risk-set matching for panel data: building the matched comparison by hand (with \texttt{optmatch}/\texttt{designmatch}) and via \texttt{PanelMatch}
+  \item Pre-trends diagnostics and their limitations
+  \item Sensitivity analysis: how much violation of parallel trends would be needed to change the conclusion? (Design-based and econometric approaches)
 \end{itemize}
 \textbf{Required:}
 \begin{enumerate}[noitemsep,leftmargin=*]
-  \item \fullcite{rosenbaum2020book}, Ch. 13
-  \item \fullcite{rosenbaum2017}, pp. 227--229
-  \item \fullcite{zubizarretakeele2017}
-  \item \fullcite{pimenteletal2018}
-\end{enumerate}
-\textbf{Recommended:} 
-
-\weekheading{Panel Data 1: Difference-in-Differences using assumptions about outcomes }
-\begin{itemize}[leftmargin=*]
-  \item The parallel trends assumption
-  \item Panel data methods for causal inference
-  \item Individual and time fixed effects
-  \item First differences and within estimators
-  \item Dynamic panel models
-  \item Event studies and pre-trends testing
-  \item Recent developments: staggered adoption and heterogeneous effects
-\end{itemize}
-\textbf{Required:} 
-\begin{enumerate}
-    \item TBA on difference in differences
-    \item \fullcite{imaikim2021}
+    \item \fullcite{rosenbaum2017}, Ch.\ 8 (pp.\ 154--166 on counterparts and difference-in-differences)
+    \item \fullcite{rothetal2023}, Secs.\ 1--2
+    \item \fullcite{cohnsongzubizarreta2025}
 \end{enumerate}
 \textbf{Recommended:}
 \begin{enumerate}[noitemsep,leftmargin=*]
-    \item \fullcite{cunningham2021causal}, Ch. 9
-  \item \fullcite{glynnkashin2017}
-  \item TBA something from Leavitt and/or Laura Hatfield \url{https://diff.healthpolicydatascience.org/}
+    \item \fullcite{rosenbaum2001b}
+    \item \fullcite{cunningham2021causal}, Ch.\ 9
+    \item \fullcite{dingli2019}
+    \item \fullcite{keelesmallhsufogarty2019}
+    \item \fullcite{rambachanroth2023}
+    \item \fullcite{leavitthatfield2025}
+    \item \fullcite{leavitt2025pretrends}
+    \item \fullcite{imaikim2019}
+    \item \fullcite{imaikim2021}
+    \item \url{https://diff.healthpolicydatascience.org/} (Leavitt, Zeldow \& Hatfield)
 \end{enumerate}
 
-\weekheading{Panel Data 3: Combining weighting and assumptions about outcomes}
+\weekheading{Staggered Treatment Timing and the Anatomy of Event Studies}
 \begin{itemize}[leftmargin=*]
-    \item When to use Two-way fixed effects and when to avoid them (or when to add weights)
-  \item Dynamic panel models
+    \item The TWFE problem under staggered adoption: Goodman-Bacon decomposition, forbidden comparisons, negative weighting
+    \item Why TWFE uses the wrong counterparts: already-treated units are contaminated comparisons
+    \item Modern estimators: Callaway \& Sant'Anna, imputation approaches, de Chaisemartin \& d'Haultf\oe uille
+    \item The experimental perspective on event studies: which observations matter, information borrowing, diagnostics (Shen et al.)
+    \item Design-based inference for DiD with staggered adoption (Athey \& Imbens)
+    \item Risk-set matching in staggered settings: constructing proper counterpart groups at each adoption time
 \end{itemize}
 \textbf{Required:}
 \begin{enumerate}[noitemsep,leftmargin=*]
-  \item \fullcite{shen2024anatomy}
-  \item \fullcite{imaikim2021}
+    \item \fullcite{bakeretal2025}
+    \item \fullcite{shen2024anatomy}, Secs.\ 1--3
+    \item \fullcite{atheyimbens2022}
 \end{enumerate}
-\textbf{Recommended:} TBA
+\textbf{Recommended:}
+\begin{enumerate}[noitemsep,leftmargin=*]
+    \item \fullcite{rothetal2023}, Secs.\ 3--4
+    \item \fullcite{goodman-bacon2018b}
+    \item \fullcite{callawaysantanna2019}
+    \item \fullcite{cunningham2021causal}, Ch.\ 9
+    \item \fullcite{chattopadhyayzubizarreta2023}
+    \item \fullcite{cohnsongzubizarreta2025} (if not read in Week 11)
+\end{enumerate}
 
-\weekheading{Panel Data 4: Synthetic controls via more assumptions about outcomes}
+\weekheading{Synthetic Controls and the Hierarchy of Panel Methods}
 \begin{itemize}[leftmargin=*]
-    \item Synthetic controls with one treated unit.
-    \item More generalized approaches
+    \item Synthetic controls as optimized counterpart construction: the donor pool as candidate counterparts, optimization finds the best composite
+    \item The method concretely: California Proposition 99 (Abadie, Diamond \& Hainmueller 2010)
+    \item Inference via placebo tests as permutation inference: which unit ``received'' the policy is the randomization
+    \item Augmented synthetic controls: bias correction when pre-treatment fit is imperfect (Ben-Michael, Feller \& Rothstein)
+    \item Synthetic DiD: bridging DiD and synthetic controls (Arkhangelsky et al.)
+    \item The hierarchy of panel methods: DiD $\to$ matched DiD $\to$ synthetic control $\to$ augmented SC $\to$ matrix completion --- assumptions, weights, and inferential frameworks
 \end{itemize}
+\textbf{Required:}
+\begin{enumerate}[noitemsep,leftmargin=*]
+  \item \fullcite{abadie2020}
+  \item \fullcite{ben-michaeletal2021}
+\end{enumerate}
+\textbf{Recommended:}
+\begin{enumerate}[noitemsep,leftmargin=*]
+  \item \fullcite{abadieetal2012}
+  \item \fullcite{xu2017generalized}
+  \item \fullcite{arkhangelsky2021}
+  \item \fullcite{cunningham2021causal}, synthetic control chapter
+  \item \fullcite{rosenbaum2015a}
+\end{enumerate}
+
+\weekheading{Mediators, Front-door paths, Post-treatment Variables}
 \textbf{Required:}
 \begin{enumerate}[leftmargin=*]
   \item TBA
 \end{enumerate}
 \textbf{Recommended:}
 \begin{enumerate}[leftmargin=*]
-  \item \fullcite{abadieetal2012}
-  \item \fullcite{abadie2020}
-  \item \fullcite{ben-michaeletal2021}
-  \item \fullcite{xu2017generalized}
+  \item TBA
 \end{enumerate}
 
 \weekheading{TBA to discuss with the class}
@@ -665,7 +721,6 @@ The Political Science Department is committed to building an inclusive environme
 \begin{enumerate}[leftmargin=*]
   \item TBA
 \end{enumerate}
-
 
 \weekheading{Final Questions}
 \begin{itemize}[leftmargin=*]

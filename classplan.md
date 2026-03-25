@@ -1,5 +1,42 @@
 
 
+# 24-03-2026
+
+## Admin
+
+## Next time
+
+I'm tempted to get into Panel data more. We have already done risk-set
+matching. Let's move to DiD.
+
+I might add some review material to the exploration:
+ - Can you write R code to calculate a weighted difference in means using
+   **both** OLS with fixed effects **and** without using any such regression
+   model?
+
+## Last time: Quiz and Review on Instrumental Variables
+
+Your questions about instrumental variables and/or anything before now?
+
+- Why do we use instruments? What do they help us do?
+- How do instruments improve on direct stratification let alone linear models for adjustment?
+- What makes something a good instrument? 
+- How would we know or learn that a variable is a good instrument?
+- What is a common estimand that an instrument can help us estimate?
+- What about the sharp null hypothesis of no effects on compliers?
+- Finally, what is going on when Rosenbaum in Observation and Experiment
+  Chapter 13 talks about $R-\rho S$ to $\rho=\bar{\delta}/\bar{\eta}$
+
+## Today: Discontinuities as Devices / Instruments
+
+Your questions.
+
+What are the two main ways to think about discontinuities as useful for causal
+inference? How do they differ? What assumptions does each require? What are the
+uncertain models that differ between them? Why do those models differ?
+
+Go over the exploration?
+
 # 10-03-2026
 
 ## Admin

@@ -1,4 +1,111 @@
 
+# 14-04-2026
+
+## Admin
+
+Rubric for final paper drafted. Comments welcome.
+
+## Next time
+
+Using variable on the causal path between a treatment and an outcome: mediators! front-door paths!
+
+## Last time: Quiz and Review on Staggered adoption/event-studies
+
+Your questions about anything that we have covered before.
+
+What is the point of a counterpart? (Hint: It is *not* that the counterpart has
+the same covariate values as the treated unit.)
+
+What are the two main models or stories that allow us to do statistical
+inference using TSCS/longitudinal data?
+
+What should you do if you ever run into a TWFE approach to estimating an ATT?
+(Like an event study or difference in differences): understand the comparisons,
+look at the weights.
+
+## Today: Synthetic Controls
+
+What is the story used to allow statistical inference for synthetic control
+analyses? (in the common case)
+
+Strengths and weakness of Synthetic Controls versus Risk-Set Matching versus
+DiD versus Event Studies (Callaway Sant'Anna) versus TWFE?
+
+
+# 07-04-2026
+
+## Admin
+
+## Next time
+
+Synthetic controls! Even farther away from ignorability and conditional ignorability.
+
+## Last time: Quiz and Review on Simple Pre-vs-Post Designs
+
+Your questions about anything that we have covered before.
+
+What are two as-if approaches to statistical inference for the kinds of pre-vs-post designs we studied?
+
+What is the point of a counterpart? (Hint: It is *not* that the counterpart has
+the same covariate values as the treated unit.)
+
+What is the main estimand for estimation-style approaches?
+
+What tests might we do?
+
+Review: What is a Hodges-Lehman estimate? How should we interpret it?
+
+
+## Today: Longer and more complicated panel data/pre-post observational studies
+
+Your questions?
+
+Go over the exploration?
+
+Approaches to using panel data for causal inference:
+- Make assumptions about how potential outcomes change ("trends").
+- Make assumptions about which units (time/unit combinations) to use for
+comparisons with which other units.
+- Create and refine/improve comparisons to strengthen such arguments.
+- A lot of pretending about super-populations and sampling (from the extensions
+of the regression based approaches including PanelMatch)
+- Statements about how even if parallel trends holds, heterogeneous treatment
+effects and wrong choices of comparisons can lead to biases.
+
+
+
+# 31-03-2026
+
+## Admin
+
+## Next time
+
+Staggered events/adoption.
+
+## Last time: Quiz and Review on Discontinuities
+
+Your questions about anything that we have covered before.
+
+What are the two main ways people **use** discontinuities in research design?
+What are the different assumptions that people make to identify estimands? Or
+that people might make to have tests with good properties?
+
+## Today: Panel data/pre-post observational studies
+
+Your questions?
+
+Go over the exploration?
+
+Approaches to using panel data for causal inference:
+ - Make assumptions about how potential outcomes change ("trends").
+ - Make assumptions about similarities on covariates (name of this approach?)
+   or on parametric functions of past outcomes (LDV) (conditional ignorability
+   / selection on observables) 
+
+Approaches to statistical inference for causal effects like the ATT:
+  - Assume an IID sample from a population (Roth et al 2023 Assumption 3)
+  - What does Rosenbaum suggest we assume? (as-if randomized within set)
+
 
 # 24-03-2026
 

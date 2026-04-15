@@ -702,14 +702,36 @@ The Political Science Department is committed to building an inclusive environme
   \item \fullcite{rosenbaum2015a}
 \end{enumerate}
 
-\weekheading{Mediators, Front-door paths, Post-treatment Variables}
+\weekheading{Mediators, Front-door Paths, and Post-treatment Variables}
+\begin{itemize}[leftmargin=*]
+  \item The danger of conditioning on post-treatment variables: why ``controlling for'' a mediator does not recover direct or indirect effects without strong assumptions, even in randomized experiments
+  \item Rosenbaum's design-based alternatives: tightened blocks for affected concomitant variables, known/unaffected outcomes as tests for bias, and differential effects to remove generic unmeasured biases
+  \item Causal mediation analysis (Imai, Keele, Tingley, Yamamoto): the ACME and ADE estimands, sequential ignorability, the \texttt{mediation} R package, and sensitivity analysis
+  \item The Green/Bullock critique: mediation analysis requires assumptions strong enough to undermine the experimental advantage --- design experiments that test mechanisms directly instead
+  \item Front-door adjustment (Pearl, Glynn): identifying total effects by routing through a complete mediator when treatment--outcome confounding is unmeasured
+  \item Comparing assumptions: sequential ignorability allows direct effects but requires no unmeasured confounding anywhere; front-door tolerates unmeasured treatment--outcome confounding but requires complete mediation
+\end{itemize}
 \textbf{Required:}
-\begin{enumerate}[leftmargin=*]
-  \item TBA
+\begin{enumerate}[noitemsep,leftmargin=*]
+  \item \fullcite{rosenbaum2025}, Ch.\ 14 (pp.\ 337--359 on tightened blocks, affected concomitants, and differential effects)
+  \item \fullcite{imaietal2011}
+  \item \fullcite{bullocketal2010}
+  \item \fullcite{bellemare2024frontdoor}
 \end{enumerate}
 \textbf{Recommended:}
-\begin{enumerate}[leftmargin=*]
-  \item TBA
+\begin{enumerate}[noitemsep,leftmargin=*]
+  \item \fullcite{rosenbaum2025}, Ch.\ 12, Secs.\ 12.1--12.2 (known effects as bias diagnostics)
+  \item \fullcite{rosenbaum1984c}
+  \item \fullcite{rosenbaum2017}, Ch.\ 7, pp.\ 118--126 (mechanisms and elaborate theories)
+  \item \fullcite{imaietal2010}
+  \item \fullcite{tingleyetal2014}
+  \item \fullcite{greenetal2010}
+  \item \fullcite{glynn2018front}
+  \item \fullcite{glynnkashin2017}
+  \item \fullcite{montgomeryetal2018}
+  \item \fullcite{acharyaetal2016c}
+  \item \fullcite{frangakisrubin2002}
+  \item \fullcite{robinsgreenland1992}
 \end{enumerate}
 
 \weekheading{TBA to discuss with the class}
@@ -736,8 +758,18 @@ The Political Science Department is committed to building an inclusive environme
     \item Contrasting assumptions about different kinds of unconfoundedness using multiple control groups and differential comparisons.
     \item Combining assumptions about treatment assignment and outcome processes: double robustness
     \item Techniques based on making arguments in favor of unconfoundedness assumptions: IPW, AIPW, Balancing weights.
-    \item Techniques based on making arguments in favor of DAG structures: Proximal causal inference and Negative controls.
-    \item Other estimands: Mediation and indirect effects, Average interference effects on networks and graphs
+    \item Proximal causal inference and negative controls: when a researcher has
+        two proxy variables for an unmeasured confounder --- one associated with
+        treatment assignment and one associated with the outcome --- these can
+        identify causal effects without observing the confounder itself, using a
+        two-stage procedure analogous to instrumental variables.
+        \begin{enumerate}[noitemsep]
+          \item \fullcite{tchetgenetal2024proximal}
+          \item \fullcite{miaogengtchetgen2018}
+          \item \fullcite{lipsitchetal2010}
+          \item \fullcite{soferetal2016}
+        \end{enumerate}
+    \item Other estimands: Average interference effects on networks and graphs
     \item Other hypotheses: About maximum effects, median effects; About patterns of interference effects on networks and graphs
         \begin{enumerate}[noitemsep]
           \item \fullcite{caughey2023randomisation}

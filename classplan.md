@@ -1,4 +1,43 @@
 
+# 21-04-2026
+
+## Admin
+
+Rubric for final paper drafted. Any comments?
+
+## Next time
+
+Options:
+
+ - Pairs teach us about multiple regression: (let's do this, Google Sheet signup.) 
+  - (1) Regression for research design,
+  - (2) Regression for description, 
+  - (3) Regression for statistical inference, 
+  - (4) Regression for causal inference. 
+
+ 8 slides, 10 minutes. In class presentation. Using a Quarto slide template that I provide.
+
+- Something else? 
+  - Could be a taste of likelihood? 
+  - Some other causal inference topic?
+    - Doubly robust estimators? 
+    - Hard to do Bayesian or Machine learning predictive causal inference if we haven't done likelihood or basics of machine learning.)
+  - Something you'd like?
+
+Last class is at least one question from each person.
+
+## Last time: Synthetic Controls or anything else before now.
+
+Your questions about anything that we have covered before.
+
+## Today: Mediators
+
+Your questions
+
+- What is the key takeaway from Imai etc..? 
+- What is the key takeaway from Bullock and Green etc. ?
+
+
 # 14-04-2026
 
 ## Admin
@@ -517,6 +556,4 @@ DAGs
 
 From Morgan and Winship:
 
-> The frequency of basic confounding has established subgroup analysis as perhaps the most common modeling strategy to prosecute causal questions in social science research. Whether referred to as subclassification, stratification, tabular decomposi- tion, or simply adjustment for a third variable, the data are analyzed after “condi- tioning” on membership in groups defined by values of the confounder variable. 
-
-
+> The frequency of basic confounding has established subgroup analysis as perhaps the most common modeling strategy to prosecute causal questions in social science research. Whether referred to as subclassification, stratification, tabular decomposi- tion, or simply adjustment for a third variable, the data are analyzed after “condi- tioning” on membership in groups defined by values of the confounder variable.

@@ -1,0 +1,342 @@
+\documentclass[11pt,letterpaper]{article}
+
+% Modern packages for styling
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{helvet} % Helvetica font (sans serif)
+\renewcommand{\familydefault}{\sfdefault} % Set sans serif as default
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{datetime}
+\usepackage{advdate}
+
+% Define color scheme
+\definecolor{primarycolor}{RGB}{19, 41, 75} % Illinois Navy Blue
+\definecolor{accentcolor}{RGB}{232, 74, 39} % Illinois Orange
+\definecolor{lightgray}{RGB}{100, 100, 100}
+
+% Hyperlink setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primarycolor,
+    urlcolor=accentcolor,
+    citecolor=primarycolor
+}
+
+% Section title formatting
+\titleformat{\section}
+{\color{primarycolor}\Large\bfseries}
+{\thesection}{1em}{}[\titlerule]
+
+\titleformat{\subsection}
+{\color{accentcolor}\large\bfseries}
+{\thesubsection}{1em}{}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\color{lightgray}\small PS 532: Quantitative Political Analysis 3}
+\fancyhead[R]{\color{lightgray}\small Fall 2025}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Date calculation setup
+% CUSTOMIZE: Change this date to adjust the first day of class
+\newcommand{\firstclassdate}{25/08/2025}
+
+\newdateformat{classformat}{\THEDAY\ \monthname[\THEMONTH] \THEYEAR}
+
+% Counter for automatic week numbering
+\newcounter{weeknum}
+\setcounter{weeknum}{0}
+
+% \classweek{offset} - Prints the date that is 'offset' weeks from firstclassdate
+\newcommand{\classweek}[1]{%
+  \stepcounter{weeknum}%
+  \SetDate[\firstclassdate]%
+  \AdvanceDate[\the\numexpr#1*7\relax]%
+  \classformat\today%
+}
+
+\begin{document}
+
+% Custom title
+\begin{center}
+  {\Huge\color{primarycolor}\bfseries PS 532}\\[0.2cm]
+  {\Large\color{accentcolor}\bfseries Quantitative Political Analysis 3}\\[0.4cm]
+  {\large Fall 2025}\\[0.2cm]
+  {\normalsize University of Illinois at Urbana-Champaign}\\[0.3cm]
+  \rule{\textwidth}{1pt}
+\end{center}
+
+\section*{\faInfoCircle\ Course Information}
+
+\noindent
+\begin{tabular}{@{}ll}
+\textbf{\faCalendar\ Meeting Time:} & Monday, 2:00 PM -- 4:20 PM \\
+\textbf{\faMapMarker\ Location:} & David Kinley Hall Room 404 \\
+\textbf{\faUser\ Instructor:} & Professor Elisha Cohen \\
+\textbf{\faEnvelope\ Email:} & \href{mailto:eacohen3@illinois.edu}{eacohen3@illinois.edu} \\
+\textbf{\faClock\ Office Hours:} & Wednesday 3:00 PM -- 5:00 PM (\href{https://calendly.com}{Calendly}) \\
+\textbf{\faBuilding\ Office:} & David Kinley Hall 323 \\[0.3cm]
+\textbf{\faUserGraduate\ Teaching Assistant:} & Liliana Brock \\
+\textbf{\faEnvelope\ TA Email:} & \href{mailto:lcbrock2@illinois.edu}{lcbrock2@illinois.edu} \\
+\textbf{\faClock\ TA Office Hours:} & \href{https://calendly.com}{Calendly}
+\end{tabular}
+
+\section*{\faBook\ Overview}
+
+This class is the third class in the graduate quantitative methods sequence in the political science department and will provide an introduction to large-sample causal inference. The goal of this course is to introduce you to commonly used approaches for causal inference with observational data in political science so that you may use them in your own work as well as confidently read and understand the work of others.
+
+We will cover a variety of research designs including difference-in-differences, regression discontinuity and instrumental variables. We will analyze the strengths and weaknesses of these methods. Applications will be drawn from a variety of areas including political science, economics, and sociology.
+
+\subsection*{Expectations}
+
+The expectations for this class are that you read and engage with the materials (syllabus, assigned readings, etc.), attend and participate in class, and complete the assessments (e.g. problem sets, presentation, final project). You will be expected to use the R programming language throughout this course.
+
+\subsection*{Office Hours}
+
+My office hours are on Wednesdays from 3-5pm in 323 David Kinley Hall (DKH). Please schedule time to meet (you can schedule multiple 10 minute blocks) using Calendly. If you need to make an appointment outside of regular office hours please email me.
+
+\section*{\faBookOpen\ Course Materials}
+
+The main textbook we will be using is online and I will refer to it as \textbf{MXT}:
+
+\begin{itemize}[leftmargin=*]
+  \item Scott Cunningham (2021). \textit{Causal Inference: The Mixtape}. Yale University Press. \\ URL: \href{https://mixtape.scunning.com/}{https://mixtape.scunning.com/}
+\end{itemize}
+
+I will link other readings as necessary. The following are textbooks that may be helpful as additional references but aren't required:
+
+\begin{itemize}[leftmargin=*]
+  \item Stephen L. Morgan and Christopher Winship (2007). \textit{Counterfactuals and Causal Inference: Methods and Principles for Social Research}. Cambridge University Press.
+  \item Joshua D. Angrist and J\"{o}rn-Steffen Pischke (2009). \textit{Mostly Harmless Econometrics: An Empiricist's Companion}. Princeton University Press.
+  \item Guido W. Imbens and Donald B. Rubin (2015). \textit{Causal Inference in Statistics, Social, and Biomedical Sciences}. Cambridge University Press.
+  \item Paul R. Rosenbaum (2002). \textit{Observational Studies}. Springer-Verlag.
+  \item Alan S. Gerber and Donald P. Green (2012). \textit{Field Experiments: Design, Analysis, and Interpretation}. W. W. Norton \& Company.
+\end{itemize}
+
+\section*{\faIcon{pencil-alt}\ Course Requirements}
+
+\begin{tabular}{@{}ll}
+\textbf{Final Project \& Presentation} & 40\% \\
+\textbf{Problem Sets (3)} & 30\% (10\% each) \\
+\textbf{Empirical Paper Presentation} & 20\% \\
+\textbf{Engagement} & 10\% \\
+\end{tabular}
+
+\subsection*{Problem Sets}
+
+The best way to learn statistics is by doing statistics. Therefore, the homework for this course will consist of analytical, computational, and data analysis questions. There will be three (3) problem sets each worth 10\% of your total grade.
+
+\begin{itemize}[leftmargin=*]
+  \item Problem sets turned in late will lose 10\% of the points for each day late.
+  \item Students are encouraged to work together on the assignments, but you always need to write your own solutions, and I ask that you make a solo effort at all the problems before consulting others. In particular, you must not simply copy and paste someone else's answers or computer code. Violation of this policy will be considered an academic integrity issue and processed accordingly to UIUC's rules and procedures for such violations. I also ask that you write the names of your co-workers on your assignments.
+  \item Using generative AI such as Copilot is not allowed for this class. These problem sets are meant as practice for you to better understand the concepts. Externalizing the work to AI defeats the purpose of practice.
+  \item For any analytical questions, you should include your intermediate steps, as well as comments on those steps when appropriate. For data analysis questions, include annotated code as part of your answers. All results should be presented so that they can be easily understood.
+  \item Submitted problem sets should be cleanly formatted. You can use R Markdown or \LaTeX.
+  \item Regardless of the grade you receive, you should go through your returned problem sets and read all the feedback. Learning from your own mistakes is often the best way to accumulate knowledge.
+\end{itemize}
+
+\subsection*{Empirical Paper Presentation}
+
+This will be a 30 minute presentation with slides of an empirical paper. Your peers, who are not presenting, will be expected to give feedback on the presentation.
+
+Look at the papers and submit your ranked preferences by \textbf{Sunday August 31, 11:59PM}.
+
+\subsection*{Final Project}
+
+In lieu of a final exam, each student will conduct a research project applying or extending methods learned in this class. The goal of the paper should be to teach one of the research designs we have covered in class through the application of your choosing. The paper should be around 10 pages in length. The paper should start with a concise statement of your research question followed by an explanation of the data and why the chosen research design gives us a causal identification framework. Next, the paper should spend significant time explaining the methodological approach including any necessary assumptions as well as limitations. Finally, the application should be used to demonstrate the method. You should include at least one robustness check or sensitivity analysis.
+
+Students need to meet the following milestones for the project:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{September:}
+  \begin{enumerate}
+    \item Think about possible topics and research questions. Explore data sources and run simple exploratory data analysis.
+    \item Meet with instructor to discuss your proposal. Sign up for a time to meet during office hours or email me if you have a conflict during these times.
+  \end{enumerate}
+  \item \textbf{October 12 by 11:59pm:} Turn in a brief description of your proposed project. By this date you need to have acquired the data you plan to use and completed a descriptive analysis of the data (e.g. simple summary statistics, crosstabs and plots). Your proposal should be no more than 2 pages, with tables and graphs included in an appendix.
+  \item \textbf{October -- November:} Continue to work on your project.
+  \item \textbf{December 7 by 11:59pm:} Slides for your final presentation are due on Canvas.
+  \item \textbf{December 8:} Student presentations in-class. Presentations will be approximately 10 minutes with 4 minutes of Q and A (depending on class size but time limits will be strictly enforced). Presentation will be an oral presentation with slides like you would do at a major academic conference like APSA or MPSA.
+  \item \textbf{December 15 by 11:59pm:} Final written report due.
+\end{itemize}
+
+\subsection*{Engagement}
+
+Students are strongly encouraged to not just attend class but to actively engage with the material by asking questions and participating in discussions during lectures. There will also be times where you are expected to give feedback for your peers such as the final presentations. Actively and constructively engaging in peer feedback will count towards your engagement.
+
+\section*{\faExclamationTriangle\ Course Policies}
+
+\subsection*{Incomplete Work}
+
+Assignments not turned in will be counted as zero in the calculation of the final grade.
+
+\subsection*{Late Work}
+
+This is a graduate class and I expect you to be able to manage your time and workload. It is your responsibility to ensure that assignments are handed in correctly and on time. For an assignment to be considered on time, the Canvas time stamp must show that a readable, final version (e.g., no document errors or failed attachments) was submitted prior to the deadline. If you need an extension come and discuss it with me prior to the due date.
+
+\subsection*{Computers in Class}
+
+You are allowed to use computers in class if that is your preferred method for note-taking. There may be times when we work through R code together and laptops will be especially useful on those occasions. I may revisit this policy if laptops in class provide too much of a distraction.
+
+\subsection*{Academic Honesty}
+
+According to the Student Code, ``It is the responsibility of each student to refrain from infractions of academic integrity, from conduct that may lead to suspicion of such infractions, and from conduct that aids others in such infractions.'' Please know that it is my responsibility as an instructor to uphold the academic integrity policy of the University, which can be found here: \href{https://studentcode.illinois.edu/article1/part4/1-401}{https://studentcode.illinois.edu/article1/part4/1-401}
+
+Students should behave in accordance with the penal and civil statutes of all applicable local, state, and federal governments, with the rules and regulations of the Board of Regents, and with university regulations and administrative rules.
+
+\subsection*{Generative AI}
+
+ChatGPT and other generative AI tools can be very useful for some tasks but are not a substitution for your own thinking and writing. For this class using these tools to help with R code is \textbf{NOT} permitted. Use of these tools for problem sets or for other assignments or presentations will be considered in violation of UIUC academic honesty code.
+
+\subsection*{Accessibility}
+
+To obtain disability-related academic adjustments and/or auxiliary aids, students with disabilities must contact the course instructor and the Disability Resources and Educational Services (DRES) as soon as possible. To contact DRES, you may visit 1207 S. Oak St., Champaign, call (217) 333-1970, e-mail \href{mailto:disability@illinois.edu}{disability@illinois.edu} or go to the \href{https://www.disability.illinois.edu/}{DRES website}. If you are concerned you have a disability-related condition that is impacting your academic progress, there are academic screening appointments available on campus that can help diagnose a previously undiagnosed disability.
+
+\subsection*{Inclusivity}
+
+In line with the Department of Political Science's commitment to create a community of care and inclusivity, it is our conviction that our shared learning experience is greatly enriched when students from diverse backgrounds and perspectives find a positive and safe environment. Respect for different viewpoints must be a chief principle during this class, and we expect all students to maintain and nurture this environment.
+
+\subsection*{Land Acknowledgement}
+
+As a land-grant institution, the University of Illinois at Urbana-Champaign has a responsibility to acknowledge the historical context in which it exists. We are currently on the lands of the Peoria, Kaskaskia, Peankashaw, Wea, Miami, Mascoutin, Odawa, Sauk, Mesquaki, Kickapoo, Potawatomi, Ojibwe, and Chickasaw Nations. It is necessary for us to acknowledge these Native Nations and for us to work with them as we move forward as an institution with Native peoples at the core of our efforts.
+
+\subsection*{Policy on Sexual Misconduct}
+
+The University of Illinois is committed to combating sexual misconduct. Faculty and staff members are required to report any instances of sexual misconduct to the university's Title IX and Disability Office. In turn, an individual with the Title IX and Disability Office will provide information about rights and options, including accommodations, support services, the campus disciplinary process, and law enforcement options. A list of the designated university employees who, as counselors, confidential advisors, and medical professionals, do not have this reporting responsibility and can maintain confidentiality, can be found in the Confidential Resources section. Other information about resources and reporting is available at \href{https://wecare.illinois.edu}{https://wecare.illinois.edu}.
+
+\subsection*{Mental Health}
+
+Significant stress, mood changes, excessive worry, substance/alcohol misuse or interferences in eating or sleep can have an impact on academic performance, social development, and emotional wellbeing. The University of Illinois offers a variety of confidential services including individual and group counseling, crisis intervention, psychiatric services, and specialized screenings which are covered through the Student Health Fee. If you or someone you know experiences any of the above mental health concerns, it is strongly encouraged to contact or visit any of the University's resources provided below. Getting help is a smart and courageous thing to do for yourself and for those who care about you.
+
+\begin{itemize}[leftmargin=*]
+  \item \href{https://www.counselingcenter.illinois.edu/}{Counseling Center} (217) 333-3704
+  \item \href{https://mckinley.illinois.edu/}{McKinley Health Center} (217) 333-2700
+  \item National Suicide Prevention Lifeline (800) 273-8255
+  \item Rosecrance Crisis Line (217) 359-4141 (available 24/7, 365 days a year)
+\end{itemize}
+
+Also, most college offices and academic deans provide academic skills support and assistance for academically related and personal problems. Links to the appropriate college contact can be found at: \href{https://illinois.edu/academics/academics.html}{https://illinois.edu/academics/academics.html}
+
+\section*{\faIcon{calendar-alt}\ Course Schedule}
+
+% HOW TO USE: \classweek{N} prints the date N weeks after firstclassdate
+% - Week numbers are offsets: 0 = first class, 1 = second week, etc.
+% - To skip a week (holiday/break): skip a number in the sequence
+
+\textit{Tentative schedule of topics and readings:}
+
+\subsection*{Week 1: \classweek{0} -- Introduction}
+Overview of course, course requirements and introduction.
+
+\subsection*{Week 2: \classweek{1} -- LABOR DAY}
+\textbf{NO CLASS}
+
+\subsection*{Week 3: \classweek{2} -- Coding; Counterfactuals}
+\textbf{Part a:} Coding, Data Management, Reproducibility, Simulation.\\
+\textbf{Part b:} Thinking about counterfactuals, the fundamental problem of causal inference.
+
+\textbf{Readings:}
+\begin{itemize}[leftmargin=*]
+  \item Ethan Bueno de Mesquita and Anthony Fowler (2021). \textit{Thinking Clearly with Data: A Guide to Quantitative Reasoning and Analysis}. Princeton University Press. Chapter 3 ``Causation: What is it and What is it good for''
+\end{itemize}
+
+\subsection*{Week 4: \classweek{3} -- Potential Outcomes and DAGs}
+\textbf{Readings:}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{MXT} Chapter 3 and 4
+\end{itemize}
+
+\subsection*{Week 5: \classweek{4} -- Randomization and Sampling}
+\textbf{Readings:}
+\begin{itemize}[leftmargin=*]
+  \item TBD
+\end{itemize}
+
+\subsection*{Week 6: \classweek{5} -- Matching}
+\textbf{Readings:}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{MXT} Chapter 5
+\end{itemize}
+
+\subsection*{Week 7: \classweek{6} -- NO CLASS}
+Work on proposal.
+
+\subsection*{Week 8: \classweek{7} -- Regression}
+\textbf{Readings:}
+\begin{itemize}[leftmargin=*]
+  \item Stephen L. Morgan and Christopher Winship (2007). \textit{Counterfactuals and Causal Inference: Methods and Principles for Social Research}. Cambridge University Press. Chapter 6 ``Regression estimators of causal effects''
+\end{itemize}
+
+\subsection*{Week 9: \classweek{8} -- Instrumental Variables}
+Using exogenous variation induced by an instrument to estimate causal effects under unobserved confounding. Estimation via the Wald Estimator and Two-Stage Least Squares. Interpreting the IV estimator and local average treatment effects. Weak Instruments.
+
+\textbf{Readings:}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{MXT} Chapter 7
+\end{itemize}
+
+\subsection*{Week 10: \classweek{9} -- Regression Discontinuity Design}
+Sharp RD designs and identification. Estimation and bandwidth selection. Fuzzy RD designs and diagnostics. Falsification checks.
+
+\textbf{Readings:}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{MXT} Chapter 6
+\end{itemize}
+
+\subsection*{Week 11: \classweek{10} -- Panel Data}
+Repeated Observations.
+
+\textbf{Readings:}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{MXT} Chapter 8
+\end{itemize}
+
+\subsection*{Week 12: \classweek{11} -- Difference-in-Differences}
+Weakening selection on observables assumptions and assumptions for DiD. Challenges with fixed effects.
+
+\textbf{Readings:}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{MXT} Chapter 9
+\end{itemize}
+
+\subsection*{Week 13: \classweek{12} -- Synthetic Control}
+Synthetic control for one treated unit. Synthetic control for multiple treated units. Estimation and statistical inference.
+
+\textbf{Readings:}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{MXT} Chapter 10
+\end{itemize}
+
+\textbf{Optional Readings:}
+\begin{itemize}[leftmargin=*]
+  \item Alberto Abadie, Alexis Diamond, and Jens Hainmueller (2010). ``Synthetic control methods for comparative case studies: Estimating the effect of California's tobacco control program''. \textit{Journal of the American Statistical Association} 105.490, pp. 493--505.
+  \item Xu, Yiqing (2017). ``Generalized Synthetic Control Method: Causal Inference with Interactive Fixed Effects Models.'' \textit{Political Analysis} 25: 57--76.
+\end{itemize}
+
+\subsection*{Week 14: \classweek{13} -- FALL BREAK}
+\textbf{NO CLASS}
+
+\subsection*{Week 15: \classweek{14} -- Final Topics}
+Guest Lecture.
+
+\subsection*{Week 16: \classweek{15} -- Final Presentations}
+Student presentations in-class.
+
+\vspace{1cm}
+
+\begin{center}
+\color{lightgray}\small
+This syllabus is subject to change. Any modifications will be announced in class and posted on Canvas.\\
+Last updated: \today
+\end{center}
+
+\end{document}

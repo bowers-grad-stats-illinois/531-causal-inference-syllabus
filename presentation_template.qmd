@@ -1,0 +1,324 @@
+---
+# ==============================================================================
+# QUARTO PRESENTATION TEMPLATE
+# Four Uses of Regression — Teaching Presentation
+#
+# Fill in the placeholders marked [LIKE THIS].
+# Read the comments (<!-- ... -->) before each slide. They explain the
+# purpose of the slide, not just the content. Delete the comments once
+# you have understood them — they should not appear in your final file.
+#
+# The structure is fixed. Do not add or remove slides unless absolutely necessary.
+# ==============================================================================
+
+title: "[Your Title: an Assertion, Not a Label]"
+subtitle: "[Topic N: e.g., 'Regression for Description']"
+author: "[Your Name] and [Your Partner]"
+date: today
+
+format:
+  beamer: default
+
+execute:
+  echo: false
+  warning: false
+  message: false
+  cache: true
+---
+
+```{r setup}
+# Load only what you need. No kitchen-sink package imports.
+library(tidyverse)
+library(broom)     # tidy() for regression output
+library(ggplot2)
+
+# Set a seed so your simulation is reproducible. Use your birthday,
+# a favorite number, whatever — but set one.
+set.seed(20260421)
+
+# A minimalist ggplot theme. Remove gridlines you are not using.
+theme_set(theme_minimal(base_size = 16))
+```
+
+<!--
+===============================================================================
+TITLE CONVENTION REMINDER
+
+Every slide title below is currently a LABEL (e.g., "The Question").
+That is placeholder text. Before you submit, rewrite every title as an
+ASSERTION — a one-sentence claim about what the slide demonstrates.
+
+BAD:  "The Broken Case"
+GOOD: "Adjusting for a collider inverts the sign of the gap"
+
+BAD:  "Diagnosis"
+GOOD: "The failure is wrong comparisons, not linearity violations"
+
+If someone reads only your slide titles in sequence, they should
+understand your whole argument. Test this before you submit.
+===============================================================================
+-->
+
+## The Question <!-- Change this title to be an assertion -->
+
+<!--
+SLIDE 1 PURPOSE: Establish what question your presentation answers.
+ONE sentence. No jargon. The audience should understand the stakes
+before they see any math.
+
+Examples of good Slide 1 claims, by topic:
+  Topic 1: "Does running a regression clarify or hide the comparison
+           you are making?"
+  Topic 2: "What makes a regression a good description, and how would
+           you know?"
+  Topic 3: "When does a sample regression coefficient tell us something trustworthy
+           about the population?"
+  Topic 4: "Under what assumptions does a regression coefficient tell us something trustworth about a
+           causal effect?"
+
+Do NOT use this slide for "Today we will discuss..." That is not a
+question, it is an agenda.
+-->
+
+[Your one-sentence question or claim goes here.]
+
+---
+
+## What Success Looks Like
+
+<!--
+SLIDE 2 PURPOSE: Define what it means for regression to SUCCEED at
+your goal. Do this BEFORE you show any method. You need a criterion
+against which to judge success and failure.
+
+This is the hardest slide. If you cannot define success precisely,
+you cannot show that anything works or fails. Spend time here.
+
+Keep it to 2-4 bullets or a single clear statement. Do not write a
+paragraph. The audience should leave this slide knowing the standard
+to which you will be holding regression given your particular purpose.
+-->
+
+- [Criterion 1]
+- [Criterion 2]
+- [Criterion 3, if needed]
+
+---
+
+## The Working Case: Setup
+
+<!--
+SLIDE 3 PURPOSE: Show how you coded up the simulation for the case where
+regression succeeds. The audience needs to see:
+  1. What variables exist
+  2. How they are related (ideally as a diagram or equations)
+  3. Why this data-generating process/simulation represents the case
+  where regression succeeds at the use you are evaluation. one where your goal
+  is achievable
+
+DO NOT paste the full simulation code. Show the structure, not the syntax. If
+you want to show R code, show the ESSENTIAL lines with everything else
+suppressed. You can also show pseudo-code.
+
+-->
+
+```{r working-dgp, eval=TRUE}
+#| echo: true
+#| code-line-numbers: false
+
+# SIMULATE THE WORKING CASE
+# Edit this to generate data where regression DOES what you want.
+# [Your simulation code here. Keep it simple enough to fit on the slide.]
+# Example structure:
+```
+
+[Briefly describe what this data-generating process represents — e.g., "Random
+binary treatment, one covariate observed, binary outcome; observational study
+with treatment caused by two observed covariates and an unobserved confounder,
+continuous outcome that also depends on those covariates plus an unobserved
+confounder."]
+
+---
+
+## The Working Case: Regression Does the Job
+
+<!--
+SLIDE 4 PURPOSE: Show the regression output and demonstrate that it
+achieved your goal (the criterion from Slide 2).
+
+DO NOT dump a full regression table with 15 coefficients. Show:
+  - The ONE number that matters (the coefficient, SE, p-value, or two numbers of the CI, false positive rate (Type I error rate), coverage rate,
+    , mean-squared error, bias), and
+  - A visual if possible (estimate vs. truth, CI covering the true
+    value, distribution of estimates across simulations)
+
+If the audience cannot see the success without you narrating, the
+slide is too dense.
+-->
+
+```{r working-result}
+#| fig-cap: "[Describe what the plot shows in one line]"
+```
+
+**Key finding:** [One sentence. E.g., "The coefficient bounces around the true value and is not systematically too high or too low ; CI coverage is 94%; the comparison by hand that we desire is exactly the comparison the regression provides."]
+
+---
+
+## The Broken Case: Setup
+
+<!--
+SLIDE 5 PURPOSE: Show the DGP for the case where regression FAILS.
+
+The difference between this DGP and the working-case DGP should
+usually be ONE thing. You are breaking one assumption cleanly, not
+six at once. A muddy failure teaches nothing.
+
+Tell the audience explicitly what you are changing:
+  - "Same as before, but now the confounder is unmeasured."
+  - "Same DGP, but we now select into the sample based on Y."
+  - "Same structure, but X is a collider of Z and Y, not a confounder."
+-->
+
+```{r broken-dgp, eval=TRUE}
+#| echo: true
+
+# SIMULATE THE BROKEN CASE
+# Change ONE thing from the working DGP. State what you changed.
+
+# [Your broken DGP here.]
+```
+
+**What changed:** [One sentence describing the single modification.]
+
+---
+
+## The Broken Case: Regression Fails
+
+<!--
+SLIDE 6 PURPOSE: Show that the regression fails, in the SAME way
+you showed it succeeded on Slide 4. Parallel structure matters —
+the audience should be able to compare Slide 4 and Slide 6 directly.
+
+The failure must be VISIBLE. Do not say "the estimate is biased"
+and show a number. Show the estimate next to the truth, or show
+coverage collapsing, or show the sampling distribution drifting
+away from the true value.
+-->
+
+```{r broken-result}
+#| fig-cap: "[Describe what the plot shows]"
+
+# Fit the SAME model to the broken data.
+# Show the same diagnostic you showed in Slide 4 — now failing.
+```
+
+**Key finding:** [One sentence. E.g., "The coefficient is biased by 10 point; CI coverage drops to 12%."]
+
+---
+
+## Why It Broke
+
+<!--
+SLIDE 7 PURPOSE: Diagnose the failure. This is the conceptual
+heart of your presentation. Without a clear diagnosis, the broken
+case is just a demonstration — not a lesson.
+
+Name the assumption that was violated. Use the vocabulary of your
+topic, for example:
+  Topic 1 or 2: specification searching, forking paths, p-hacking
+  Topic 1 or 2: confounder vs. mediator vs. collider; over-adjustment
+  Topic 3: non-random sampling, clustered SE, selection into sample, samples too small for CLT, outcome too skewed or rare binary for CLT
+  Topic 4: unmeasured confounding, collider bias, post-treatment bias, forbidden comparisons
+
+A good diagnosis is at the level of the ASSUMPTION, not the symptom. "The
+overall effect was negative even though when we looked at the lmw or TWFE
+weights by hand, all of the strata have positive effects." is a symptom not a diagnosis.
+
+-->
+
+The assumption violated: **[name it precisely]**
+
+[One or two sentences explaining, in the topic's native vocabulary, why this violation produced the failure you saw on Slide 6.]
+
+---
+
+## The Fix (or the Honest Admission)
+
+<!--
+SLIDE 8 PURPOSE: Can the failure be fixed with more data, a better
+specification, or a different design? Or is it unfixable given what
+we have in the simulated data?
+
+BE HONEST. Some failures have no remedy short of a different study.
+If yours is one of those, say so. Intellectual honesty on this slide
+builds ethos more than a false solution does.
+
+Do not invent a fix for the sake of symmetry. "There is no way to
+recover the causal effect from this data" is a legitimate and
+correct answer for many Topic 4 failures.
+-->
+
+[One of:]
+
+- **Fixable by** [cluster-robust SEs / DAG-based adjustment / IV / etc.]
+- **Unfixable with this data** because [reason]
+
+---
+
+## The Boundary
+
+<!--
+SLIDE 9 PURPOSE: State the conditions under which regression DOES
+and DOES NOT serve your goal. This generalizes beyond your specific
+simulation.
+
+The audience should leave this slide knowing when they should trust
+a regression for your topic and when they should be skeptical.
+This is the transferable lesson.
+-->
+
+Regression serves [your goal] when:
+
+- [Condition 1]
+- [Condition 2]
+
+It fails when:
+
+- [Failure condition 1]
+- [Failure condition 2]
+
+---
+
+## Takeaway
+
+<!--
+SLIDE 10 PURPOSE: Give the audience ONE sentence they will remember
+tomorrow. Not a summary. Not a thank-you. A takeaway.
+
+Return to the question from Slide 1 — now answered. If you cannot
+close the loop between Slide 1 and Slide 10, your argument has
+drifted. Go back and fix it.
+
+DO NOT end with "Questions?" That is lazy. Put your takeaway up,
+let it sit while you take questions, and let people leave with
+your sentence in their heads.
+-->
+
+# [Your one-sentence takeaway.]
+
+<!-- ============================================================ -->
+<!-- PRE-SUBMISSION CHECKLIST                                     -->
+<!--                                                              -->
+<!-- Before you submit, walk through your deck and confirm:       -->
+<!--                                                              -->
+<!-- [ ] Every slide title is an ASSERTION, not a label           -->
+<!-- [ ] Every slide expresses exactly ONE idea                   -->
+<!-- [ ] No slide is a wall of sentences                          -->
+<!-- [ ] The working case and broken case differ in ONE thing     -->
+<!-- [ ] The failure on Slide 6 is visible, not just asserted     -->
+<!-- [ ] Slide 7 names the assumption that was violated           -->
+<!-- [ ] Slide 10 closes the loop with Slide 1                    -->
+<!-- [ ] You have rehearsed and it fits in 10 minutes             -->
+<!-- [ ] You have deleted every instructional comment in this     -->
+<!--     template before rendering the final version              -->
+<!-- ============================================================ -->

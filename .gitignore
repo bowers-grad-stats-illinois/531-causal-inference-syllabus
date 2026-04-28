@@ -64,3 +64,5 @@ rsconnect/
 *.bcf
 *.run.xml
 *.dvi
+
+.DS_Store

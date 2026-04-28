@@ -61,3 +61,6 @@ rsconnect/
 *.nav
 *.snm
 *.vrb
+*.bcf
+*.run.xml
+*.dvi

@@ -1,4 +1,38 @@
 
+# 5-05-2026
+
+## Admin
+
+Questions about the final project/paper?
+
+## Next time
+
+Make sure to take PS 532. Likelihood and Bayes are common and useful ways to do
+statistical inference. They have applications to causal inference too.
+
+What are common applications of likelihood based statistical inference? or Maximum Likelihood Estimation (MLE)?
+
+ - The logit (data description, population inference, maybe causal inference) model
+ - Negative Binomial 
+ - (BTW, the linear regression model can be derived as a likelihood based estimator too)
+ - Multilevel models 
+
+Bayesian approaches require likelihoods --- they are built on likelihoods. They allow:
+
+- Measurement models (like IRT, text classifiers)
+- Better / easier to compute multilevel models (sometimes)
+- Machine learning and prediction.
+
+That class will probably also have some machine learning/statistical learning
+(Which tends to focus on **prediction** and
+**classification**/**categorization**.)  (Notice how this helps causal
+inference: we can directly predict unobserved potential outcomes using these
+approaches.)
+
+## Today: Your questions
+
+
+
 # 21-04-2026
 
 ## Admin
